@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Logo Concept</title>
+    <style>
+        /* This ensures the HTML page is just the SVG on a transparent background */
+        body { 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            /* CRITICAL: Set transparent background so only the logo is visible */
+            background-color: transparent; 
+        }
+        
+        @keyframes rotate-pinwheel {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .pinwheel {
+            animation: rotate-pinwheel 10s linear infinite; 
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body>
+    <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(100, 100)">
+            <g class="pinwheel">
+                <!-- Blue Quadrant (Top Right) -->
+                <path d="M0 0 L 80 0 A 80 80 0 0 1 0 80 Z" fill="#4285F4"/> 
+                <!-- Red/Orange Quadrant (Bottom Right) -->
+                <path d="M0 0 L 0 80 A 80 80 0 0 1 -80 0 Z" fill="#EA4335" transform="rotate(90)"/> 
+                <!-- Yellow Quadrant (Bottom Left) -->
+                <path d="M0 0 L -80 0 A 80 80 0 0 1 0 -80 Z" fill="#FBBC05" transform="rotate(180)"/> 
+                <!-- Green Quadrant (Top Left) -->
+                <path d="M0 0 L 0 -80 A 80 80 0 0 1 80 0 Z" fill="#34A853" transform="rotate(270)"/> 
+                <!-- Inner Hole (The Convergence Point) -->
+                <circle cx="0" cy="0" r="20" fill="#FFFFFF"/>
+                <circle cx="0" cy="0" r="10" fill="#4285F4" opacity="0.8"/>
+            </g>
+        </g>
+    </svg>
+</body>
+</html>
