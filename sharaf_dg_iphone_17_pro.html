@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone 17 Pro Full Screen COVER</title>
+    <title>iPhone 17 Pro Ultimate Zoom Fix</title>
     <style>
         /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
         body, html {
@@ -14,17 +14,18 @@
             overflow: hidden !important; 
         }
         
-        /* Forces the video to completely COVER the container area. This may result in cropping */
+        /* Forces the video to completely COVER and slightly OVER-SCALE the container area */
         video {
             width: 100% !important; 
             height: 100% !important; 
-            /* *** CRITICAL: USING 'cover' to ensure full fill (may crop) *** */
             object-fit: cover; 
             controls: false !important; 
+            
+            /* *** FINAL FIX: Scale up by 5% to guarantee no border is visible *** */
+            transform: scale(1.05);
         }
 
         /* --- AGGRESSIVE CONTROL HIDING FIX --- */
-        /* Hides all parts of the default media player controls across browsers */
         video::-webkit-media-controls,
         video::-webkit-media-controls-enclosure {
             display: none !important;
@@ -36,9 +37,6 @@
     </style>
 </head>
 <body>
-    <!-- 
-        The video source MUST match the filename exactly, which we have corrected.
-    -->
     <video 
         id="video-player" 
         src="🚀iPhone 17 Pro — The Most Powerful iPhone Ever at Sharaf DG.mp4" 
