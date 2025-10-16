@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone 17 Pro Ultimate Fix V4</title>
+    <title>iPhone 17 Pro Full Screen COVER</title>
     <style>
         /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
         body, html {
@@ -14,16 +14,17 @@
             overflow: hidden !important; 
         }
         
-        /* Forces the video to show entirely within the container (contain is used to avoid cropping) */
+        /* Forces the video to completely COVER the container area. This may result in cropping */
         video {
             width: 100% !important; 
             height: 100% !important; 
-            object-fit: contain; /* Prevents cropping */
+            /* *** CRITICAL: USING 'cover' to ensure full fill (may crop) *** */
+            object-fit: cover; 
             controls: false !important; 
         }
 
         /* --- AGGRESSIVE CONTROL HIDING FIX --- */
-        /* Hides all parts of the default media player controls */
+        /* Hides all parts of the default media player controls across browsers */
         video::-webkit-media-controls,
         video::-webkit-media-controls-enclosure {
             display: none !important;
@@ -36,8 +37,7 @@
 </head>
 <body>
     <!-- 
-        FINAL ATTEMPT: Removing the <source> tag and putting the video path directly into the 'src'
-        attribute of the <video> element. This is sometimes required for strict browsers.
+        The video source MUST match the filename exactly, which we have corrected.
     -->
     <video 
         id="video-player" 
@@ -52,21 +52,15 @@
     <script>
         const videoElement = document.getElementById('video-player');
         
-        // 1. Final event-based loop guarantee: When the video ends, reset time and play again.
+        // Final event-based loop guarantee: When the video ends, reset time and play again.
         videoElement.addEventListener('ended', () => {
             videoElement.currentTime = 0;
-            // Check if the video is ready before trying to play
-            if (videoElement.readyState >= 2) {
-                videoElement.play();
-            } else {
-                // If not ready, listen for the 'canplay' event
-                videoElement.addEventListener('canplay', () => videoElement.play(), { once: true });
-            }
+            videoElement.play();
         });
         
-        // 2. Initial start attempt
+        // Initial start attempt
         videoElement.play().catch(error => {
-            console.warn("Autoplay was blocked, user interaction may be required. Code is set to force loop.");
+            console.warn("Autoplay was blocked.");
         });
     </script>
 </body>
