@@ -3,51 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Logo Zoom Animation</title>
+    <title>LS Digital Aggressive Zoom Logo</title>
     <style>
-        /* Ensures the embed component fills its box and centers content */
+        /* CSS to ensure the logo is centered and fills the embed container */
         body, html {
-            margin: 0;
-            padding: 0;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent; /* Makes the background transparent in Looker Studio */
+        }
+
+        /* Keyframes for the dramatic zoom effect */
+        @keyframes zoomInOut {
+            0% { transform: scale(1); } /* Start at normal size */
+            50% { transform: scale(1.5); } /* Zoom in aggressively (50% larger) */
+            100% { transform: scale(1); } /* Return to normal size */
+        }
+
+        /* The container holding the image */
+        .logo-container {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            background-color: transparent; /* IMPORTANT for Looker Studio transparency */
         }
 
-        /* Define the Zoom Animation */
-      @keyframes zoomInOut {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.5); } /* Increased from previous value to make it zoom more */
-    100% { transform: scale(1); }
-}
-
-        .logo-container {
-            width: 100%;
-            max-width: 250px; /* Adjust this max size based on your embed component */
-            /* DURATION CHANGED TO 4 SECONDS BELOW */
-            animation: single-zoom-pulse 4s ease-out 0s 1 forwards; 
-            overflow: hidden; 
-        }
-
+        /* The image itself, applying the animation */
         .logo-img {
-            display: block;
-            width: 100%;
+            max-width: 90%;
+            max-height: 90%;
             height: auto;
+            /* Animation parameters: 4s duration, loop infinitely, smooth timing */
+            animation: zoomInOut 4s infinite ease-in-out;
+            transform-origin: center center; /* Ensures zoom originates from the center */
         }
     </style>
 </head>
 <body>
     <div class="logo-container">
+        <!-- CRITICAL: Ensure this is the correct Raw GitHub link for your logo image -->
         <img 
             src="https://raw.githubusercontent.com/ayushgharge-ops/ls-assets/main/lsdigitallogo-removebg-preview.png" 
-            alt="Digital Logo" 
+            alt="Digital logo" 
             class="logo-img"
         />
     </div>
 </body>
 </html>
 
+        
