@@ -3,36 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharaf DG Full Screen Ad Final</title>
+    <title>iPhone 17 Pro Ultimate Fix V4</title>
     <style>
-        /* CRITICAL: Use !important to override Looker Studio's default margins/padding */
+        /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
         body, html {
             margin: 0 !important; 
             padding: 0 !important; 
             width: 100% !important; 
             height: 100% !important; 
-            overflow: hidden !important; /* Prevents scrollbars */
+            overflow: hidden !important; 
         }
         
-        /* Forces the video itself to cover the container */
+        /* Forces the video to show entirely within the container (contain is used to avoid cropping) */
         video {
             width: 100% !important; 
             height: 100% !important; 
-            /* This is the setting that causes cropping, see step 2 below */
-            object-fit: cover; 
-            position: absolute; /* Ensures it sits over everything */
-            top: 0;
-            left: 0;
-            z-index: 100;
+            object-fit: contain; /* Prevents cropping */
+            controls: false !important; 
         }
+
+        /* --- AGGRESSIVE CONTROL HIDING FIX --- */
+        /* Hides all parts of the default media player controls */
+        video::-webkit-media-controls,
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+            opacity: 0 !important;
+        }
+        video::-moz-range-track { display: none !important; }
+        video::-moz-range-thumb { display: none !important; }
+        video::-ms-fill-lower { display: none !important; }
     </style>
 </head>
 <body>
-    <!-- The "loop" attribute handles the looping. 
-         controls="false" or simply removing "controls" ensures no player controls appear. -->
-    <video loop autoplay muted playsinline>
-        <source src="🚀iPhone 17 Pro — The Most Powerful iPhone Ever at Sharaf DG.mp4" type="video/mp4">
+    <!-- 
+        FINAL ATTEMPT: Removing the <source> tag and putting the video path directly into the 'src'
+        attribute of the <video> element. This is sometimes required for strict browsers.
+    -->
+    <video 
+        id="video-player" 
+        src="🚀iPhone 17 Pro — The Most Powerful iPhone Ever at Sharaf DG.mp4" 
+        autoplay 
+        muted 
+        playsinline
+    >
         Your browser does not support the video tag.
     </video>
+
+    <script>
+        const videoElement = document.getElementById('video-player');
+        
+        // 1. Final event-based loop guarantee: When the video ends, reset time and play again.
+        videoElement.addEventListener('ended', () => {
+            videoElement.currentTime = 0;
+            // Check if the video is ready before trying to play
+            if (videoElement.readyState >= 2) {
+                videoElement.play();
+            } else {
+                // If not ready, listen for the 'canplay' event
+                videoElement.addEventListener('canplay', () => videoElement.play(), { once: true });
+            }
+        });
+        
+        // 2. Initial start attempt
+        videoElement.play().catch(error => {
+            console.warn("Autoplay was blocked, user interaction may be required. Code is set to force loop.");
+        });
+    </script>
 </body>
 </html>
