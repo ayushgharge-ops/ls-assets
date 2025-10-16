@@ -3,88 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimum Nutrition Ad Hard Fix</title>
+    <title>All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition</title>
     <style>
-        /* CRITICAL: Override all default margins/padding */
+        /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
         body, html {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            overflow: hidden !important;
-            display: flex; /* Helps center the container */
-            justify-content: center;
-            align-items: center;
-            background: #000; /* Ensures black background fill */
+            margin: 0 !important; 
+            padding: 0 !important; 
+            width: 100% !important; 
+            height: 100% !important; 
+            overflow: hidden !important; 
         }
         
-        /* 1. The Wrapper: This defines the visible area (the size of your Looker Studio embed) */
-        #video-wrapper {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden; /* Crucial: Clips anything outside this box */
-            cursor: default; /* Prevents click-to-pause */
-        }
-        
-        /* 2. The Video Element: We make it slightly bigger and position it to hide the controls */
-        #myVideo {
-            width: 100%;
-            height: 100%;
-            /* Make it slightly larger than the container to clip off any remaining controls/borders */
-            transform: scale(1.02); 
-            object-fit: cover;
+        /* Forces the video to completely COVER and slightly OVER-SCALE the container area */
+        video {
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: cover; 
+            controls: false !important; 
             
-            /* Positioning is relative to the wrapper */
-            position: absolute;
-            top: 0;
-            left: 0;
+            /* *** FINAL FIX: Scale up by 5% to guarantee no border is visible *** */
+            transform: scale(1.05);
         }
 
-        /* 3. FINAL AGGRESSIVE CONTROL HIDING (Optional, but safe to keep) */
-        video::-webkit-media-controls { display: none !important; }
-        video::-webkit-media-controls-enclosure { display: none !important; }
-
+        /* --- AGGRESSIVE CONTROL HIDING FIX --- */
+        video::-webkit-media-controls,
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+            opacity: 0 !important;
+        }
+        video::-moz-range-track { display: none !important; }
+        video::-moz-range-thumb { display: none !important; }
+        video::-ms-fill-lower { display: none !important; }
     </style>
 </head>
 <body>
-    <div id="video-wrapper">
-        <video id="myVideo" muted playsinline>
-            <source src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    <video 
+        id="video-player" 
+        src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" 
+        autoplay 
+        muted 
+        playsinline
+    >
+        Your browser does not support the video tag.
+    </video>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('myVideo');
-
-            // Set initial state and play immediately
-            function startVideo() {
-                // Muted and playsinline are mandatory for autoplay
-                video.muted = true;
-                video.playsinline = true;
-                
-                // Attempt to play and catch potential errors (like blocked autoplay)
-                video.play().catch(error => {
-                    console.error('Initial auto-play blocked:', error);
-                    // You might need a "Click to Play" prompt if this fails, but it usually works in Looker Studio
-                });
-            }
-
-            // Loop Handler (More reliable than the native 'loop' attribute)
-            video.addEventListener('ended', () => {
-                video.currentTime = 0;
-                video.play().catch(error => {
-                    console.error('Loop auto-play blocked:', error);
-                });
-            });
-
-            // Start the video once the window loads completely
-            window.onload = startVideo;
-
-            // Also try to start on DOM load as a fallback
-            startVideo();
+        const videoElement = document.getElementById('video-player');
+        
+        // Final event-based loop guarantee: When the video ends, reset time and play again.
+        videoElement.addEventListener('ended', () => {
+            videoElement.currentTime = 0;
+            videoElement.play();
+        });
+        
+        // Initial start attempt
+        videoElement.play().catch(error => {
+            console.warn("Autoplay was blocked.");
         });
     </script>
 </body>
