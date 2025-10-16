@@ -5,39 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharaf DG Full Screen Ad Final</title>
     <style>
-        /* CRITICAL: Force the outermost page container to 100% with no padding/margins */
+        /* CRITICAL: Use !important to override Looker Studio's default margins/padding */
         body, html {
             margin: 0 !important; 
             padding: 0 !important; 
             width: 100% !important; 
             height: 100% !important; 
-            overflow: hidden; 
+            overflow: hidden !important; /* Prevents scrollbars */
         }
         
-        /* New Wrapper DIV: Ensures the video container itself fills the space */
-        #video-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Forces the video to cover the container */
+        /* Forces the video itself to cover the container */
         video {
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* This makes it fill the box by cropping edges if needed */
+            width: 100% !important; 
+            height: 100% !important; 
+            /* This is the setting that causes cropping, see step 2 below */
+            object-fit: cover; 
+            position: absolute; /* Ensures it sits over everything */
+            top: 0;
+            left: 0;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <!-- New wrapper container -->
-    <div id="video-container">
-        <!-- controls="false" ensures no player controls show up -->
-        <video loop autoplay muted playsinline controls="false"> 
-            <!-- NOTE: Use your exact filename here -->
-            <source src="🌈 iPhone 17 - Magic in Every Shade at Sharaf DG!.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    <!-- The "loop" attribute handles the looping. 
+         controls="false" or simply removing "controls" ensures no player controls appear. -->
+    <video loop autoplay muted playsinline>
+        <source src="🌈 iPhone 17 - Magic in Every Shade at Sharaf DG!.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </body>
 </html>
-
