@@ -18,28 +18,42 @@
         video {
             width: 100% !important;
             height: 100% !important;
-            /* 'cover' ensures the video fills the element, cropping if necessary */
-            object-fit: cover;
-            /* CRITICAL: Hides the default control bar */
+            object-fit: cover; /* Ensures the video fills the element, cropping if necessary */
             display: block; 
         }
 
-        /* Optional: Hide the video poster frame while loading if needed, though usually not necessary with autoplay */
+        /* --- CRITICAL CONTROL HIDING FIX --- */
+        /* Hides the control bar in Webkit browsers (Chrome, Safari) */
         video::-webkit-media-controls {
             display:none !important;
+            opacity: 0 !important;
+        }
+
+        /* Hides the control bar for the standard approach (Firefox, etc.) */
+        video::-webkit-media-controls-enclosure {
+            display:none !important;
+            opacity: 0 !important;
+        }
+        
+        /* Ensures the background/poster area is not clickable for controls */
+        video::--webkit-media-text-track-container {
+            display:none !important;
+            opacity: 0 !important;
         }
     </style>
 </head>
 <body>
     <!--
         Crucial Attributes for Auto-play and Looping:
-        - loop: Repeats the video indefinitely (redundant with JS, but good fallback).
+        - loop: Repeats the video indefinitely (good fallback).
         - autoplay: Starts playing immediately.
         - muted: REQUIRED by all modern browsers for autoplay to work.
         - playsinline: Ensures playback works correctly on mobile devices.
-        - We intentionally omit 'controls' attribute for a clean look.
+        - We intentionally omit 'controls' attribute.
     -->
     <video id="myVideo" loop autoplay muted playsinline>
+        <!-- NOTE: Ensure this filename 'All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4' 
+             is an exact match to the file name in your hosting repository (e.g., GitHub). -->
         <source src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -49,26 +63,22 @@
             const video = document.getElementById('myVideo');
 
             // 1. Add an event listener for when the video ends to force replay.
-            // This is more robust than the 'loop' attribute in some iframe/browser environments.
             video.addEventListener('ended', () => {
                 video.currentTime = 0;
                 video.play().catch(error => {
-                    // This catch handles possible auto-play block issues, though 'muted' should prevent most.
                     console.error('Auto-play blocked after loop:', error);
                 });
             });
 
-            // 2. Ensure video starts playing on load, which is necessary if 
-            // the 'autoplay' attribute is sometimes ignored by the iframe environment.
-            // Use a timeout to ensure the DOM is fully settled.
+            // 2. Ensure video starts playing immediately on load, 
+            // handling cases where the 'autoplay' attribute might be ignored.
+            // The video must be muted for this to work.
             setTimeout(() => {
                 video.play().catch(error => {
-                    // Muted is essential for this to work
-                    console.error('Initial auto-play blocked:', error);
+                    console.error('Initial auto-play blocked. Make sure the video is muted.', error);
                 });
-            }, 100);
+            }, 50); // Small delay to ensure the element is ready
         });
     </script>
 </body>
 </html>
-
