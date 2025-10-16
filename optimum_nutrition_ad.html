@@ -3,81 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimum Nutrition Ad Loop Fix</title>
+    <title>Optimum Nutrition Ad Hard Fix</title>
     <style>
-        /* CRITICAL: Use !important to override Looker Studio's default margins/padding */
+        /* CRITICAL: Override all default margins/padding */
         body, html {
             margin: 0 !important;
             padding: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            overflow: hidden !important; /* Prevents scrollbars */
+            overflow: hidden !important;
+            display: flex; /* Helps center the container */
+            justify-content: center;
+            align-items: center;
+            background: #000; /* Ensures black background fill */
         }
         
-        /* Forces the video itself to cover the container */
-        video {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover; /* Ensures the video fills the element, cropping if necessary */
-            display: block; 
-        }
-
-        /* --- CRITICAL CONTROL HIDING FIX --- */
-        /* Hides the control bar in Webkit browsers (Chrome, Safari) */
-        video::-webkit-media-controls {
-            display:none !important;
-            opacity: 0 !important;
-        }
-
-        /* Hides the control bar for the standard approach (Firefox, etc.) */
-        video::-webkit-media-controls-enclosure {
-            display:none !important;
-            opacity: 0 !important;
+        /* 1. The Wrapper: This defines the visible area (the size of your Looker Studio embed) */
+        #video-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden; /* Crucial: Clips anything outside this box */
+            cursor: default; /* Prevents click-to-pause */
         }
         
-        /* Ensures the background/poster area is not clickable for controls */
-        video::--webkit-media-text-track-container {
-            display:none !important;
-            opacity: 0 !important;
+        /* 2. The Video Element: We make it slightly bigger and position it to hide the controls */
+        #myVideo {
+            width: 100%;
+            height: 100%;
+            /* Make it slightly larger than the container to clip off any remaining controls/borders */
+            transform: scale(1.02); 
+            object-fit: cover;
+            
+            /* Positioning is relative to the wrapper */
+            position: absolute;
+            top: 0;
+            left: 0;
         }
+
+        /* 3. FINAL AGGRESSIVE CONTROL HIDING (Optional, but safe to keep) */
+        video::-webkit-media-controls { display: none !important; }
+        video::-webkit-media-controls-enclosure { display: none !important; }
+
     </style>
 </head>
 <body>
-    <!--
-        Crucial Attributes for Auto-play and Looping:
-        - loop: Repeats the video indefinitely (good fallback).
-        - autoplay: Starts playing immediately.
-        - muted: REQUIRED by all modern browsers for autoplay to work.
-        - playsinline: Ensures playback works correctly on mobile devices.
-        - We intentionally omit 'controls' attribute.
-    -->
-    <video id="myVideo" loop autoplay muted playsinline>
-        <!-- NOTE: Ensure this filename 'All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4' 
-             is an exact match to the file name in your hosting repository (e.g., GitHub). -->
-        <source src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div id="video-wrapper">
+        <video id="myVideo" muted playsinline>
+            <source src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const video = document.getElementById('myVideo');
 
-            // 1. Add an event listener for when the video ends to force replay.
+            // Set initial state and play immediately
+            function startVideo() {
+                // Muted and playsinline are mandatory for autoplay
+                video.muted = true;
+                video.playsinline = true;
+                
+                // Attempt to play and catch potential errors (like blocked autoplay)
+                video.play().catch(error => {
+                    console.error('Initial auto-play blocked:', error);
+                    // You might need a "Click to Play" prompt if this fails, but it usually works in Looker Studio
+                });
+            }
+
+            // Loop Handler (More reliable than the native 'loop' attribute)
             video.addEventListener('ended', () => {
                 video.currentTime = 0;
                 video.play().catch(error => {
-                    console.error('Auto-play blocked after loop:', error);
+                    console.error('Loop auto-play blocked:', error);
                 });
             });
 
-            // 2. Ensure video starts playing immediately on load, 
-            // handling cases where the 'autoplay' attribute might be ignored.
-            // The video must be muted for this to work.
-            setTimeout(() => {
-                video.play().catch(error => {
-                    console.error('Initial auto-play blocked. Make sure the video is muted.', error);
-                });
-            }, 50); // Small delay to ensure the element is ready
+            // Start the video once the window loads completely
+            window.onload = startVideo;
+
+            // Also try to start on DOM load as a fallback
+            startVideo();
         });
     </script>
 </body>
