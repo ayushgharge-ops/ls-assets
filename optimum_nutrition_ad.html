@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimum Nutrition Ad Loop</title>
+    <title>Optimum Nutrition Ad Loop Fix</title>
     <style>
         /* CRITICAL: Use !important to override Looker Studio's default margins/padding */
         body, html {
@@ -20,21 +20,55 @@
             height: 100% !important;
             /* 'cover' ensures the video fills the element, cropping if necessary */
             object-fit: cover;
+            /* CRITICAL: Hides the default control bar */
+            display: block; 
+        }
+
+        /* Optional: Hide the video poster frame while loading if needed, though usually not necessary with autoplay */
+        video::-webkit-media-controls {
+            display:none !important;
         }
     </style>
 </head>
 <body>
     <!--
         Crucial Attributes for Auto-play and Looping:
-        - loop: Repeats the video indefinitely.
+        - loop: Repeats the video indefinitely (redundant with JS, but good fallback).
         - autoplay: Starts playing immediately.
         - muted: REQUIRED by all modern browsers for autoplay to work.
         - playsinline: Ensures playback works correctly on mobile devices.
-        - controls="false": Hides the player controls for a cleaner look.
+        - We intentionally omit 'controls' attribute for a clean look.
     -->
-    <video loop autoplay muted playsinline controls="false">
+    <video id="myVideo" loop autoplay muted playsinline>
         <source src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('myVideo');
+
+            // 1. Add an event listener for when the video ends to force replay.
+            // This is more robust than the 'loop' attribute in some iframe/browser environments.
+            video.addEventListener('ended', () => {
+                video.currentTime = 0;
+                video.play().catch(error => {
+                    // This catch handles possible auto-play block issues, though 'muted' should prevent most.
+                    console.error('Auto-play blocked after loop:', error);
+                });
+            });
+
+            // 2. Ensure video starts playing on load, which is necessary if 
+            // the 'autoplay' attribute is sometimes ignored by the iframe environment.
+            // Use a timeout to ensure the DOM is fully settled.
+            setTimeout(() => {
+                video.play().catch(error => {
+                    // Muted is essential for this to work
+                    console.error('Initial auto-play blocked:', error);
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>
+
