@@ -19,11 +19,11 @@
         }
 
         /* Define the Zoom Animation */
-        @keyframes single-zoom-pulse {
-            0% { transform: scale(0.8); opacity: 0; }  /* Start small and invisible */
-            50% { transform: scale(1.1); opacity: 1; } /* Zoom in slightly past 100% (the pulse) */
-            100% { transform: scale(1.0); opacity: 1; } /* Settle at final size (100%) and stop */
-        }
+      @keyframes zoomInOut {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); } /* Increased from previous value to make it zoom more */
+    100% { transform: scale(1); }
+}
 
         .logo-container {
             width: 100%;
