@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom Animation Logo</title>
+    <style>
+        /* Ensures the embed component fills its box and centers content */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: transparent; /* IMPORTANT for Looker Studio transparency */
+        }
+
+        /* Define the Zoom Animation */
+        @keyframes single-zoom-pulse {
+            0% { transform: scale(0.8); opacity: 0; }  /* Start small and invisible */
+            50% { transform: scale(1.1); opacity: 1; } /* Zoom in slightly past 100% (the pulse) */
+            100% { transform: scale(1.0); opacity: 1; } /* Settle at final size (100%) and stop */
+        }
+
+        .logo-container {
+            width: 100%;
+            max-width: 250px; /* Adjust this max size based on your embed component */
+            animation: single-zoom-pulse 1.5s ease-out 0s 1 forwards; /* 1.5s duration, runs ONCE, holds final state */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .logo-img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <!-- 
+            *** ACTION REQUIRED: REPLACE THE SRC WITH YOUR ACTUAL LOGO URL ***
+            You can use a placeholder image URL for testing.
+        -->
+        <img 
+            src="https://www.bing.com/images/search?view=detailV2&ccid=sAQHTMdN&id=E29A7CF87932ECE8452A4090746623D64B393032&thid=OIP.sAQHTMdNOs7NMVgP1RhXhQHaFS&mediaurl=https%3a%2f%2fmarketingmind.in%2fwp-content%2fuploads%2f2024%2f07%2fLS-Digital-logo.png&exph=536&expw=750&q=ls+digital+logo&FORM=IRPRST&ck=4563857A22EF1C42AC78F258D976841C&selectedIndex=0&itb=0&idpp=overlayview&ajaxhist=0&ajaxserp=0" 
+            alt="Company Logo" 
+            class="logo-img"
+        />
+    </div>
+</body>
+</html>
