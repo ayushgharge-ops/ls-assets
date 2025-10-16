@@ -3,46 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone 17 Pro Definitive Fix</title>
+    <title>Sharaf DG Full Screen Ad Final</title>
     <style>
-        /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
+        /* CRITICAL: Use !important to override Looker Studio's default margins/padding */
         body, html {
             margin: 0 !important; 
             padding: 0 !important; 
             width: 100% !important; 
             height: 100% !important; 
-            overflow: hidden !important; 
+            overflow: hidden !important; /* Prevents scrollbars */
         }
-        /* Forces the video to show entirely within the container (contain) */
+        
+        /* Forces the video itself to cover the container */
         video {
             width: 100% !important; 
             height: 100% !important; 
-            object-fit: contain; 
+            /* This is the setting that causes cropping, see step 2 below */
+            object-fit: cover; 
+            position: absolute; /* Ensures it sits over everything */
+            top: 0;
+            left: 0;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <video id="video-player"></video>
-
-    <script>
-        const videoElement = document.getElementById('video-player');
-        
-        // Use a variable to hold your specific video filename
-        const videoFileName = "🚀iPhone 17 Pro — The Most Powerful iPhone Ever at Sharaf DG.mp4"; 
-        
-        // Set all required attributes explicitly via JavaScript
-        videoElement.src = videoFileName;
-        videoElement.loop = true;      // Looping
-        videoElement.autoplay = true;  // Autoplay
-        videoElement.muted = true;     // Muted is required for autoplay
-        videoElement.playsInline = true; // For mobile devices
-        videoElement.controls = false; // Explicitly set controls to false
-        
-        // This is a common fix to kickstart autoplay on some browsers
-        videoElement.play().catch(error => {
-            console.warn("Autoplay was prevented, but loop/muted is active.", error);
-        });
-
-    </script>
+    <!-- The "loop" attribute handles the looping. 
+         controls="false" or simply removing "controls" ensures no player controls appear. -->
+    <video loop autoplay muted playsinline>
+        <source src="🚀iPhone 17 Pro — The Most Powerful iPhone Ever at Sharaf DG.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </body>
 </html>
