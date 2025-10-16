@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimum Nutrition Ad Loop</title>
+    <style>
+        /* CRITICAL: Use !important to override Looker Studio's default margins/padding */
+        body, html {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden !important; /* Prevents scrollbars */
+        }
+        
+        /* Forces the video itself to cover the container */
+        video {
+            width: 100% !important;
+            height: 100% !important;
+            /* 'cover' ensures the video fills the element, cropping if necessary */
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        Crucial Attributes for Auto-play and Looping:
+        - loop: Repeats the video indefinitely.
+        - autoplay: Starts playing immediately.
+        - muted: REQUIRED by all modern browsers for autoplay to work.
+        - playsinline: Ensures playback works correctly on mobile devices.
+        - controls="false": Hides the player controls for a cleaner look.
+    -->
+    <video loop autoplay muted playsinline controls="false">
+        <source src="All Protein powders are NOT high quality ｜ Rishabh Pant x Optimum Nutrition.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</body>
+</html>
