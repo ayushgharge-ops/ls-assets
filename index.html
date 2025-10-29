@@ -3,35 +3,64 @@
 <head>
     <title>Animated Brand Logo - Furlenco</title>
     <style>
-        /* CSS to style and center the logo */
-        .logo {
-            /* Set a manageable size for the logo */
-            width: 150px; 
-            height: 150px;
-            
-            /* Center the logo on the page */
-            display: block; 
-            margin: 50px auto; 
-            
-            /* Apply the animation: Name, Duration, Speed, Repeat */
-            animation: zoom-in-out 2s ease-in-out infinite; 
+        body {
+            /* Basic styling to center the content on the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Use min-height for full viewport height */
+            margin: 0;
+            background-color: #ffffff; /* Assuming a white background for visibility */
+            overflow: hidden; /* Hide anything that goes outside the viewport during animation */
         }
 
-        /* Define the steps of the animation */
+        .furlenco-logo-text {
+            /* --- Styling for the text logo --- */
+            font-family: sans-serif; /* Or a specific font if you know it */
+            font-size: 80px; /* Adjust as needed for size */
+            font-weight: bold; /* FURLENCO looks bold */
+            color: #008080; /* A teal color similar to your logo */
+            
+            /* --- NEW: Letter Spacing --- */
+            letter-spacing: 5px; /* Adjust this value for more or less distance */
+            
+            /* Ensure text is a block element for centering */
+            display: block; 
+            text-align: center;
+
+            /* --- Animation Properties --- */
+            /* Animation: Name, Duration, Timing Function, Delay, Count, Fill Mode */
+            animation: zoom-in-out 2s ease-in-out 0s 1 forwards; 
+            /* Changes: 'infinite' is now '1' (play once) and 'forwards' is added (stay at end) */
+
+            opacity: 0; /* Start invisible for a smoother fade-in with zoom */
+        }
+
+        /* --- Keyframes for the Animation --- */
         @keyframes zoom-in-out {
             0% {
-                transform: scale(1.0); /* Original size */
+                opacity: 0; /* Start fully transparent */
+                transform: scale(3.0); /* Start zoomed WAY IN */
             }
-            50% {
-                transform: scale(1.2); /* Zoom in (20% larger) */
+            20% {
+                opacity: 1; /* Fade in */
+                transform: scale(1.1); /* Zoom out slightly past normal to create a bounce */
+            }
+            40% {
+                transform: scale(0.95); /* Little bounce back */
+            }
+            60% {
+                opacity: 1; /* Fully visible */
+                transform: scale(1.0); /* Settles at normal size */
             }
             100% {
-                transform: scale(1.0); /* Back to original size */
+                opacity: 1; /* Stays visible */
+                transform: scale(1.0); /* Stays at normal size */
             }
         }
     </style>
 </head>
 <body>
-    <img src="Find_comfort___style___Buy___rent_furniture_online__Furlenco-removebg-preview.png" alt="Furlenco Brand Logo" class="logo">
+    <div class="furlenco-logo-text">FURLENCO</div>
 </body>
 </html>
