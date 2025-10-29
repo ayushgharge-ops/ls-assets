@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Brand Logo - Furlenco</title>
+    <style>
+        /* CSS to style and center the logo */
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 150px; 
+            height: 150px;
+            
+            /* Center the logo on the page */
+            display: block; 
+            margin: 50px auto; 
+            
+            /* Apply the animation: Name, Duration, Speed, Repeat */
+            animation: zoom-in-out 2s ease-in-out infinite; 
+        }
+
+        /* Define the steps of the animation */
+        @keyframes zoom-in-out {
+            0% {
+                transform: scale(1.0); /* Original size */
+            }
+            50% {
+                transform: scale(1.2); /* Zoom in (20% larger) */
+            }
+            100% {
+                transform: scale(1.0); /* Back to original size */
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="Find_comfort___style___Buy___rent_furniture_online__Furlenco-removebg-preview.png" alt="Furlenco Brand Logo" class="logo">
+</body>
+</html>
