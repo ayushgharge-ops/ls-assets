@@ -4,26 +4,27 @@
     <title>Animated Brand Logo - Furlenco</title>
     <style>
         body, html {
-            /* Crucial: Ensure the body and html take up the full available viewport */
+            /* Crucial: Set background to transparent so data below can be seen */
+            background-color: transparent !important;
+            
+            /* Basic layout setup */
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
             overflow: hidden; 
-            background-color: #ffffff; /* Set background color */
         }
 
         .logo {
-            /* Start with a large size to appear full-screen */
-            width: 80vh; /* 80% of viewport height (adjust as needed for screen size) */
+            width: 80vh; 
             height: auto;
             display: block;
-            position: absolute; /* Allows precise positioning */
+            position: absolute; 
             
             /* Apply the animation */
             animation: fullScreenToCorner 3s ease-in-out forwards;
             
-            /* Initial state (before 0% of the animation): Centered and slightly transparent */
+            /* Initial state */
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -41,12 +42,11 @@
                 transform: translate(-50%, -50%);
             }
             
-            /* 2. Full Screen State (Appears Large and Fades In) */
+            /* 2. Full Screen State (Visible) */
             10% {
                 opacity: 1; 
             }
             30% {
-                /* Pauses briefly centered and large */
                 top: 50%;
                 left: 50%;
                 width: 80vh;
@@ -55,21 +55,24 @@
             
             /* 3. Transition to Corner (Shrinks and Moves) */
             60% {
-                /* Start shrinking and moving towards the top-left */
                 opacity: 1;
-                top: 10px;    /* Final Y position (10px from top) */
-                left: 10px;   /* Final X position (10px from left) */
-                width: 100px; /* Final small size (adjust as needed) */
-                transform: translate(0, 0); /* Stops the center translation */
+                top: 10px;    /* Final Y position */
+                left: 10px;   /* Final X position */
+                width: 100px; /* Final small size */
+                transform: translate(0, 0);
             }
             
-            /* 4. Final Corner State (Stays Small and in Corner) */
+            /* 4. Final Corner State (Settle) */
             100% {
                 top: 10px;
                 left: 10px;
                 width: 100px;
                 opacity: 1;
                 transform: translate(0, 0);
+                
+                /* CRUCIAL: Add a transparent background to the logo element itself */
+                /* This ensures that any background area of the logo component is clear */
+                background-color: transparent; 
             }
         }
     </style>
