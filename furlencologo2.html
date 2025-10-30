@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Brand Logo - Furlenco</title>
+    <style>
+        body {
+            /* Center the logo on the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+            background-color: #ffffff;
+            overflow: hidden; 
+        }
+
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            display: block; 
+            
+            /* --- NEW: Setup for Slide Animation --- */
+            position: relative; /* Crucial: Allows 'top' property to be animated */
+            
+            /* Apply the new 'slideUp' animation */
+            animation: slideUp 2s ease-out forwards; 
+            
+            /* Start invisible and below the final spot */
+            top: 50px; /* Start 50px below the center */
+            opacity: 0;
+        }
+
+        /* --- NEW: Keyframes for Down-to-Up Animation --- */
+        @keyframes slideUp {
+            0% {
+                /* Starting state: below the final position and invisible */
+                top: 50px; 
+                opacity: 0;
+            }
+            
+            100% {
+                /* Ending state: at the final position and fully visible */
+                top: 0; 
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="furlencologo.png" 
+         alt="Furlenco Brand Logo" 
+         class="logo">
+</body>
+</html>
