@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Animated Brand Logo - Furlenco</title>
+    <title>Furlenco Animated Logo - Zoom & Disappear</title>
     <style>
         body, html {
-            /* Keep aggressive transparency */
+            /* Aggressively ensure the document itself has no background */
             background-color: transparent !important; 
             width: 100%;
             height: 100%;
@@ -13,31 +13,45 @@
             overflow: hidden; 
         }
 
-        .logo {
-            width: 80vh; 
-            height: auto;
-            display: block;
-            position: absolute; 
-            background-color: transparent !important; 
-            
-            /* Apply the animation */
-            animation: fullScreenToCorner 3s ease-in-out forwards;
-            
-            /* Initial state */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
+        #animator-container {
+            /* Container to hold the logo and center it */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
 
-        /* Keyframes remain the same */
-        @keyframes fullScreenToCorner {
-            0% { top: 50%; left: 50%; opacity: 0; width: 80vh; transform: translate(-50%, -50%); }
-            10% { opacity: 1; }
-            30% { top: 50%; left: 50%; width: 80vh; transform: translate(-50%, -50%); }
-            60% { opacity: 1; top: 10px; left: 10px; width: 100px; transform: translate(0, 0); }
-            100% { 
-                top: 10px; left: 10px; width: 100px; opacity: 1; transform: translate(0, 0);
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            display: block; 
+            
+            /* --- Animation Properties --- */
+            animation: zoom-in-once 2s ease-out 0.5s 1 forwards; /* 2s duration, 0.5s delay */
+            
+            /* Start invisible before animation begins */
+            opacity: 0; 
+            transform: scale(0.1); /* Start very small */
+        }
+
+        /* --- Keyframes for the Zoom-In/Out Animation --- */
+        @keyframes zoom-in-once {
+            0% {
+                opacity: 0; 
+                transform: scale(0.1); /* Start small and invisible */
+            }
+            10% {
+                opacity: 1; /* Fade in quickly */
+                transform: scale(1.0);
+            }
+            80% {
+                transform: scale(1.1); /* Slight overshoot for a nice bounce/impact */
+            }
+            100% {
+                opacity: 1; 
+                transform: scale(1.0); /* Settle at normal size */
             }
         }
     </style>
@@ -51,18 +65,20 @@
     </div>
 
     <script>
-        const animationDuration = 3000; // 3 seconds
-        const delay = 500;              // 0.5 second safety delay
+        const animationDuration = 2000; // 2 seconds for the animation
+        const initialDelay = 500;       // 0.5 second delay before animation starts
+        const safetyDelay = 500;        // 0.5 second safety delay after animation
 
+        // Total time before hiding: 2000ms + 500ms + 500ms = 3000ms (3 seconds)
         setTimeout(() => {
             const container = document.getElementById('animator-container');
             if (container) {
-                // HIDE THE ENTIRE HTML CONTENT TO FREE UP THE SPACE
+                // HIDE THE ENTIRE CONTENT AFTER THE ANIMATION COMPLETES
                 container.style.display = 'none';
             }
             // Ensure the body is transparent one last time
             document.body.style.backgroundColor = 'transparent';
-        }, animationDuration + delay);
+        }, animationDuration + initialDelay + safetyDelay);
     </script>
 </body>
 </html>
