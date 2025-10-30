@@ -3,46 +3,73 @@
 <head>
     <title>Animated Brand Logo - Furlenco</title>
     <style>
-        body {
-            /* Center the logo on the page */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; 
+        body, html {
+            /* Crucial: Ensure the body and html take up the full available viewport */
+            width: 100%;
+            height: 100%;
             margin: 0;
-            background-color: #ffffff;
+            padding: 0;
             overflow: hidden; 
+            background-color: #ffffff; /* Set background color */
         }
 
         .logo {
-            /* Set a manageable size for the logo */
-            width: 300px; /* Adjust size as needed */
+            /* Start with a large size to appear full-screen */
+            width: 80vh; /* 80% of viewport height (adjust as needed for screen size) */
             height: auto;
-            display: block; 
+            display: block;
+            position: absolute; /* Allows precise positioning */
             
-            /* --- NEW: Setup for Slide Animation --- */
-            position: relative; /* Crucial: Allows 'top' property to be animated */
+            /* Apply the animation */
+            animation: fullScreenToCorner 3s ease-in-out forwards;
             
-            /* Apply the new 'slideUp' animation */
-            animation: slideUp 2s ease-out forwards; 
-            
-            /* Start invisible and below the final spot */
-            top: 50px; /* Start 50px below the center */
+            /* Initial state (before 0% of the animation): Centered and slightly transparent */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             opacity: 0;
         }
 
-        /* --- NEW: Keyframes for Down-to-Up Animation --- */
-        @keyframes slideUp {
+        /* --- Keyframes for the Full-Screen Transition --- */
+        @keyframes fullScreenToCorner {
+            /* 1. Initial State (Start Invisible and Centered) */
             0% {
-                /* Starting state: below the final position and invisible */
-                top: 50px; 
+                top: 50%;
+                left: 50%;
                 opacity: 0;
+                width: 80vh; 
+                transform: translate(-50%, -50%);
             }
             
-            100% {
-                /* Ending state: at the final position and fully visible */
-                top: 0; 
+            /* 2. Full Screen State (Appears Large and Fades In) */
+            10% {
+                opacity: 1; 
+            }
+            30% {
+                /* Pauses briefly centered and large */
+                top: 50%;
+                left: 50%;
+                width: 80vh;
+                transform: translate(-50%, -50%);
+            }
+            
+            /* 3. Transition to Corner (Shrinks and Moves) */
+            60% {
+                /* Start shrinking and moving towards the top-left */
                 opacity: 1;
+                top: 10px;    /* Final Y position (10px from top) */
+                left: 10px;   /* Final X position (10px from left) */
+                width: 100px; /* Final small size (adjust as needed) */
+                transform: translate(0, 0); /* Stops the center translation */
+            }
+            
+            /* 4. Final Corner State (Stays Small and in Corner) */
+            100% {
+                top: 10px;
+                left: 10px;
+                width: 100px;
+                opacity: 1;
+                transform: translate(0, 0);
             }
         }
     </style>
