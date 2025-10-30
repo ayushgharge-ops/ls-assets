@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Furlenco Animated Logo - Zoom & Disappear</title>
+    <title>Furlenco Animated Logo - Slide & Disappear</title>
     <style>
         body, html {
-            /* Aggressively ensure the document itself has no background */
+            /* Aggressive transparency */
             background-color: transparent !important; 
             width: 100%;
             height: 100%;
@@ -24,34 +24,31 @@
 
         .logo {
             /* Set a manageable size for the logo */
-            width: 300px; /* Adjust size as needed */
+            width: 300px; /* Adjust this to match your static logo size */
             height: auto;
             display: block; 
-            
+            position: relative; /* Needed for transform/translate animation */
+
             /* --- Animation Properties --- */
-            animation: zoom-in-once 2s ease-out 0.5s 1 forwards; /* 2s duration, 0.5s delay */
+            animation: slideIn 2s ease-out 0.5s 1 forwards; /* 2s duration, 0.5s start delay */
             
-            /* Start invisible before animation begins */
+            /* Initial state (off-screen left and invisible) */
             opacity: 0; 
-            transform: scale(0.1); /* Start very small */
+            transform: translateX(-100%); 
         }
 
-        /* --- Keyframes for the Zoom-In/Out Animation --- */
-        @keyframes zoom-in-once {
+        /* --- Keyframes for the Slide-in Animation --- */
+        @keyframes slideIn {
             0% {
                 opacity: 0; 
-                transform: scale(0.1); /* Start small and invisible */
+                transform: translateX(-100%); /* Start completely off the left edge */
             }
             10% {
-                opacity: 1; /* Fade in quickly */
-                transform: scale(1.0);
-            }
-            80% {
-                transform: scale(1.1); /* Slight overshoot for a nice bounce/impact */
+                opacity: 1; /* Fade in quickly as it starts moving */
             }
             100% {
                 opacity: 1; 
-                transform: scale(1.0); /* Settle at normal size */
+                transform: translateX(0); /* End at the centered position */
             }
         }
     </style>
@@ -65,20 +62,21 @@
     </div>
 
     <script>
-        const animationDuration = 2000; // 2 seconds for the animation
-        const initialDelay = 500;       // 0.5 second delay before animation starts
-        const safetyDelay = 500;        // 0.5 second safety delay after animation
+        const animationDuration = 2000; 
+        const initialDelay = 500;       
+        const safetyDelay = 500;        
 
         // Total time before hiding: 2000ms + 500ms + 500ms = 3000ms (3 seconds)
+        const totalDuration = animationDuration + initialDelay + safetyDelay;
+
         setTimeout(() => {
             const container = document.getElementById('animator-container');
             if (container) {
-                // HIDE THE ENTIRE CONTENT AFTER THE ANIMATION COMPLETES
+                // HIDE THE ENTIRE HTML CONTENT
                 container.style.display = 'none';
             }
-            // Ensure the body is transparent one last time
             document.body.style.backgroundColor = 'transparent';
-        }, animationDuration + initialDelay + safetyDelay);
+        }, totalDuration);
     </script>
 </body>
 </html>
