@@ -4,10 +4,8 @@
     <title>Animated Brand Logo - Furlenco</title>
     <style>
         body, html {
-            /* Crucial: Set background to transparent so data below can be seen */
-            background-color: transparent !important;
-            
-            /* Basic layout setup */
+            /* Aggressively ensure the document itself has no background */
+            background-color: transparent !important; 
             width: 100%;
             height: 100%;
             margin: 0;
@@ -20,6 +18,7 @@
             height: auto;
             display: block;
             position: absolute; 
+            background-color: transparent !important; 
             
             /* Apply the animation */
             animation: fullScreenToCorner 3s ease-in-out forwards;
@@ -31,48 +30,15 @@
             opacity: 0;
         }
 
-        /* --- Keyframes for the Full-Screen Transition --- */
+        /* Keyframes for the Full-Screen Transition remain the same */
         @keyframes fullScreenToCorner {
-            /* 1. Initial State (Start Invisible and Centered) */
-            0% {
-                top: 50%;
-                left: 50%;
-                opacity: 0;
-                width: 80vh; 
-                transform: translate(-50%, -50%);
-            }
-            
-            /* 2. Full Screen State (Visible) */
-            10% {
-                opacity: 1; 
-            }
-            30% {
-                top: 50%;
-                left: 50%;
-                width: 80vh;
-                transform: translate(-50%, -50%);
-            }
-            
-            /* 3. Transition to Corner (Shrinks and Moves) */
-            60% {
-                opacity: 1;
-                top: 10px;    /* Final Y position */
-                left: 10px;   /* Final X position */
-                width: 100px; /* Final small size */
-                transform: translate(0, 0);
-            }
-            
-            /* 4. Final Corner State (Settle) */
-            100% {
-                top: 10px;
-                left: 10px;
-                width: 100px;
-                opacity: 1;
-                transform: translate(0, 0);
-                
-                /* CRUCIAL: Add a transparent background to the logo element itself */
-                /* This ensures that any background area of the logo component is clear */
-                background-color: transparent; 
+            0% { top: 50%; left: 50%; opacity: 0; width: 80vh; transform: translate(-50%, -50%); }
+            10% { opacity: 1; }
+            30% { top: 50%; left: 50%; width: 80vh; transform: translate(-50%, -50%); }
+            60% { opacity: 1; top: 10px; left: 10px; width: 100px; transform: translate(0, 0); }
+            100% { 
+                top: 10px; left: 10px; width: 100px; opacity: 1; transform: translate(0, 0);
+                /* The logo itself remains, but its visual boundary is small */
             }
         }
     </style>
@@ -81,5 +47,16 @@
     <img src="furlencologo.png" 
          alt="Furlenco Brand Logo" 
          class="logo">
+
+    <script>
+        // Use JavaScript to explicitly remove the background after the animation finishes
+        const animationDuration = 3000; // 3 seconds for the animation
+        const delay = 500;              // 0.5 second safety delay
+
+        setTimeout(() => {
+            // After the animation, force the background of the body to transparent.
+            document.body.style.backgroundColor = 'transparent';
+        }, animationDuration + delay);
+    </script>
 </body>
 </html>
