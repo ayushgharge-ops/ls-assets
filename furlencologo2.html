@@ -4,7 +4,7 @@
     <title>Animated Brand Logo - Furlenco</title>
     <style>
         body, html {
-            /* Aggressively ensure the document itself has no background */
+            /* Aggressive transparency */
             background-color: transparent !important; 
             width: 100%;
             height: 100%;
@@ -30,7 +30,7 @@
             opacity: 0;
         }
 
-        /* Keyframes for the Full-Screen Transition remain the same */
+        /* Keyframes remain the same */
         @keyframes fullScreenToCorner {
             0% { top: 50%; left: 50%; opacity: 0; width: 80vh; transform: translate(-50%, -50%); }
             10% { opacity: 1; }
@@ -38,24 +38,33 @@
             60% { opacity: 1; top: 10px; left: 10px; width: 100px; transform: translate(0, 0); }
             100% { 
                 top: 10px; left: 10px; width: 100px; opacity: 1; transform: translate(0, 0);
-                /* The logo itself remains, but its visual boundary is small */
             }
         }
     </style>
 </head>
 <body>
-    <img src="furlencologo.png" 
+    <img id="furlenco-logo" 
+         src="furlencologo.png" 
          alt="Furlenco Brand Logo" 
          class="logo">
 
     <script>
-        // Use JavaScript to explicitly remove the background after the animation finishes
         const animationDuration = 3000; // 3 seconds for the animation
         const delay = 500;              // 0.5 second safety delay
 
         setTimeout(() => {
-            // After the animation, force the background of the body to transparent.
-            document.body.style.backgroundColor = 'transparent';
+            const logoElement = document.getElementById('furlenco-logo');
+            
+            if (logoElement) {
+                // 1. Visually remove the logo image
+                logoElement.style.display = 'none';
+                
+                // 2. Remove the background again (redundant but safe)
+                document.body.style.backgroundColor = 'transparent';
+                
+                // 3. OPTIONAL: You could try to move the logo out of the way entirely
+                // logoElement.style.top = '-9999px'; 
+            }
         }, animationDuration + delay);
     </script>
 </body>
