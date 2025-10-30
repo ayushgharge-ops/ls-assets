@@ -1,67 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LS Digital Animated Logo</title>
+    <title>Sharaf DG </title>
     <style>
-        /* CSS to ensure the logo is centered and fills the embed container */
-        body, html {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            overflow: hidden !important;
+        body {
+            /* Center the logo on the page */
             display: flex;
             justify-content: center;
             align-items: center;
-            background: transparent;
+            min-height: 100vh; 
+            margin: 0;
+            background-color: #ffffff;
+            overflow: hidden; 
         }
 
-        /* Keyframes for the professional fade-up and slide effect */
-        @keyframes fadeUpSlide {
-            0% { 
-                opacity: 0; 
-                transform: translateY(20px); /* Start 20px below final spot */
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0); /* End at final spot */
-            }
-        }
-
-        /* The container holding the image */
-        .logo-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* The image itself, applying the animation */
-        .logo-img {
-            max-width: 90%;
-            max-height: 90%;
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 300px; /* Adjust size as needed */
             height: auto;
-            width: auto; 
-            min-height: 50px; 
+            display: block; 
             
-            opacity: 0; /* Start invisible */
-            /* UPDATED: Faster 2.5s duration for a snappier, professional look */
-            animation: fadeUpSlide 5s 1 forwards ease-out;
-            transform-origin: center center;
+            /* --- Animation Properties --- */
+            /* Play Once (1) and Stay at End Position (forwards) */
+            animation: zoom-in-once 2s ease-out 0.5s 1 forwards; 
+            
+            /* Start invisible before animation begins */
+            opacity: 0; 
+        }
+
+        /* --- Keyframes for the Animation --- */
+        @keyframes zoom-in-once {
+            0% {
+                opacity: 0; 
+                transform: scale(2.0); /* Start zoomed in */
+            }
+            10% {
+                opacity: 1; /* Fade in quickly */
+            }
+            80% {
+                transform: scale(1.05); /* Slight overshoot for a nice bounce */
+            }
+            100% {
+                opacity: 1; 
+                transform: scale(1.0); /* Settle at normal size */
+            }
         }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        <!-- FIXED: Using the full, stable content fetch ID for the uploaded file -->
-        <img 
-            src="sharaf-dg_17_001_2.png"
-            alt="LS Digital logo" 
-            class="logo-img"
-        />
-    </div>
+    <img src="sharaf-dg_17_001_2.png" 
+         alt="Sharaf DG " 
+         class="logo">
 </body>
 </html>
