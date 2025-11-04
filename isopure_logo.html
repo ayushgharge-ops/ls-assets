@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ISOPURE Sequential Impact Reveal</title>
+    <title>ISOPURE Centered Impact Reveal</title>
     <style>
         body, html {
             /* Ensures the background of the iframe is transparent */
@@ -14,17 +14,15 @@
         }
 
         #animator-container {
-            /* Flexbox centers all elements in the header area */
+            /* Centers the ISOPURE text both horizontally and vertically */
             display: flex;
-            justify-content: space-between; 
+            justify-content: center;
             align-items: center;
             width: 100%;
             height: 100%;
-            padding: 0 20px; 
-            box-sizing: border-box; 
         }
 
-        /* --- STYLES FOR THE ISOPURE TEXT (Center) --- */
+        /* --- STYLES FOR THE ISOPURE TEXT (The Logo) --- */
         .isopure-logo {
             display: flex; 
             font-family: Arial, sans-serif;
@@ -37,13 +35,13 @@
         .letter {
             display: inline-block;
             opacity: 0; 
-            /* Apply the new impact animation */
+            /* Apply the impact animation */
             animation: impactReveal 0.6s ease-out forwards; 
             transform: scale(0.5); /* Start small */
             margin: 0 1px; 
         }
 
-        /* --- SEQUENTIAL DELAY (Staggered Animation) --- */
+        /* --- SEQUENTIAL DELAY --- */
         .letter:nth-child(1) { animation-delay: 0.5s; }  /* I */
         .letter:nth-child(2) { animation-delay: 0.6s; }  /* S */
         .letter:nth-child(3) { animation-delay: 0.7s; }  /* O */
@@ -67,26 +65,10 @@
                 transform: scale(1.0); /* Settle at final size */
             }
         }
-
-        /* --- STYLES FOR STATIC LOGOS (Fade in quickly) --- */
-        .static-logo {
-            height: 40px; 
-            width: auto;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 0.2s forwards; 
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
     </style>
 </head>
 <body>
     <div id="animator-container">
-        <div class="logo-isopure-removebg-preview.png" style="height: 30px; font-weight: bold; color: #444;">
-             Ads Data Hub
-        </div>
-
         <div class="isopure-logo">
             <span class="letter">I</span>
             <span class="letter">S</span>
@@ -95,10 +77,6 @@
             <span class="letter">U</span>
             <span class="letter">R</span>
             <span class="letter">E</span>
-        </div>
-
-        <div class="static-logo">
-             I/O Digital
         </div>
     </div>
 </body>
