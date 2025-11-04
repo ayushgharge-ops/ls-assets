@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ISOPURE Final Header Reveal</title>
+    <title>ISOPURE Sequential Slide-In</title>
     <style>
         body, html {
             /* Ensures the background of the iframe is transparent */
@@ -16,34 +16,35 @@
         #animator-container {
             /* Flexbox centers all elements in the header area */
             display: flex;
-            justify-content: space-between; /* Spreads out the logos */
+            justify-content: space-between; 
             align-items: center;
             width: 100%;
-            height: 100%; /* Occupies the full height of the URL Embed box */
-            padding: 0 20px; /* Space around the edge */
+            height: 100%;
+            padding: 0 20px; 
             box-sizing: border-box; 
         }
 
         /* --- STYLES FOR THE ISOPURE TEXT (Center) --- */
         .isopure-logo {
-            display: flex; /* Centers the letters horizontally */
+            display: flex; 
             font-family: Arial, sans-serif;
-            font-size: 80px; /* Large size */
-            color: #00bcd4; /* ISOPURE blue color */
+            font-size: 80px; 
+            color: #00bcd4; 
             font-weight: bold;
+            /* Wrap the letters in a container to move them as a group */
+            position: relative;
         }
         
         .letter {
             display: inline-block;
-            opacity: 0; 
-            animation: fadeInSlide 0.5s ease-out forwards;
-            position: relative;
-            top: 10px; 
-            /* Spacing between letters */
+            opacity: 0; /* Start invisible */
+            animation: slideInLetter 0.5s ease-out forwards; /* Base animation */
+            /* Start off-screen to the left */
+            transform: translateX(-50px); 
             margin: 0 1px; 
         }
 
-        /* --- SEQUENTIAL DELAY --- */
+        /* --- SEQUENTIAL DELAY (Staggered Animation) --- */
         .letter:nth-child(1) { animation-delay: 0.5s; }  /* I */
         .letter:nth-child(2) { animation-delay: 0.6s; }  /* S */
         .letter:nth-child(3) { animation-delay: 0.7s; }  /* O */
@@ -52,30 +53,35 @@
         .letter:nth-child(6) { animation-delay: 1.0s; }  /* R */
         .letter:nth-child(7) { animation-delay: 1.1s; }  /* E */
 
-        /* --- KEYFRAMES --- */
-        @keyframes fadeInSlide {
-            0% { opacity: 0; top: 10px; }
-            100% { opacity: 1; top: 0; }
+        /* --- KEYFRAMES for Left-to-Center Slide --- */
+        @keyframes slideInLetter {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50px); /* Start 50px left */
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0); /* End in final position */
+            }
         }
 
-        /* --- STYLES FOR STATIC LOGOS (Left/Right) --- */
+        /* --- STYLES FOR STATIC LOGOS (Fade in quickly) --- */
         .static-logo {
-            height: 40px; /* Standardize the height for the logos */
+            height: 40px; 
             width: auto;
             opacity: 0;
-            animation: fadeIn 1s ease-out 0.2s forwards; /* Static logos fade in quickly */
+            animation: fadeIn 1s ease-out 0.2s forwards; 
         }
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-        
     </style>
 </head>
 <body>
     <div id="animator-container">
         <div class="static-logo" style="height: 30px; font-weight: bold; color: #444;">
-              Ads Data Hub
+             Ads Data Hub
         </div>
 
         <div class="isopure-logo">
@@ -89,20 +95,8 @@
         </div>
 
         <div class="logo-isopure-removebg-preview.png">
-                    </div>
+             I/O Digital
+        </div>
     </div>
-
-    <script>
-        // Set timeout based on the longest animation (1.1s + 0.5s) plus safety margin
-        const totalDuration = 1600 + 500; 
-
-        setTimeout(() => {
-            const container = document.getElementById('animator-container');
-            if (container) {
-                // HIDE THE ENTIRE HTML CONTENT TO REVEAL THE DASHBOARD
-                container.style.display = 'none';
-            }
-        }, totalDuration);
-    </script>
-</body>
+    </body>
 </html>
