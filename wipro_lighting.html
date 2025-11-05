@@ -13,19 +13,35 @@
             height: 100% !important; 
             overflow: hidden !important; 
         }
+
+        /* --- NEW: Video Wrapper for Absolute Positioning --- */
+        #video-wrapper {
+            position: absolute; /* Allows video to be positioned relative to body */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Clips the 1.05 scale overflow */
+            z-index: 1; /* Ensure it stays behind any dashboard elements you overlay */
+        }
         
         /* Forces the video to completely COVER and slightly OVER-SCALE the container area */
         video {
-            width: 100% !important; 
-            height: 100% !important; 
+            /* Now positioned relative to the wrapper */
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            
+            /* Use min-width/height to guarantee cover, plus translate for centering */
+            min-width: 100%; 
+            min-height: 100%; 
+            transform: translate(-50%, -50%) scale(1.02); /* Translate centers it, scale guarantees coverage */
+            
             object-fit: cover; 
             controls: false !important; 
-            
-            /* *** FINAL FIX: Scale up by 5% to guarantee no border is visible *** */
-            transform: scale(1.05);
         }
 
-        /* --- AGGRESSIVE CONTROL HIDING FIX --- */
+        /* --- AGGRESSIVE CONTROL HIDING FIX (Keep as is) --- */
         video::-webkit-media-controls,
         video::-webkit-media-controls-enclosure {
             display: none !important;
@@ -37,15 +53,17 @@
     </style>
 </head>
 <body>
-    <video 
-        id="video-player" 
-        src="Wipro Lighting new.mp4" 
-        autoplay 
-        muted 
-        playsinline
-    >
-        Your browser does not support the video tag.
-    </video>
+    <div id="video-wrapper">
+        <video 
+            id="video-player" 
+            src="Wipro Lighting new.mp4" 
+            autoplay 
+            muted 
+            playsinline
+        >
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
     <script>
         const videoElement = document.getElementById('video-player');
