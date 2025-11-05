@@ -1,83 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ISOPURE Centered Impact Reveal</title>
+    <title>Animated Brand Logo - Isopure </title>
     <style>
-        body, html {
-            /* Ensures the background of the iframe is transparent */
-            background-color: transparent !important; 
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; 
-        }
-
-        #animator-container {
-            /* Centers the ISOPURE text both horizontally and vertically */
+        body {
+            /* Center the logo on the page */
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 100%;
+            min-height: 100vh; 
+            margin: 0;
+            background-color: #ffffff;
+            overflow: hidden; 
         }
 
-        /* --- STYLES FOR THE ISOPURE TEXT (The Logo) --- */
-        .isopure-logo {
-            display: flex; 
-            font-family: Arial, sans-serif;
-            font-size: 80px; 
-            color: #00bcd4; /* ISOPURE blue color */
-            font-weight: bold;
-            position: relative;
-        }
-        
-        .letter {
-            display: inline-block;
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            display: block; 
+            
+            /* --- Animation Properties --- */
+            /* Play Once (1) and Stay at End Position (forwards) */
+            animation: zoom-in-once 2s ease-out 0.5s 1 forwards; 
+            
+            /* Start invisible before animation begins */
             opacity: 0; 
-            /* Apply the impact animation */
-            animation: impactReveal 0.6s ease-out forwards; 
-            transform: scale(0.5); /* Start small */
-            margin: 0 1px; 
         }
 
-        /* --- SEQUENTIAL DELAY --- */
-        .letter:nth-child(1) { animation-delay: 0.5s; }  /* I */
-        .letter:nth-child(2) { animation-delay: 0.6s; }  /* S */
-        .letter:nth-child(3) { animation-delay: 0.7s; }  /* O */
-        .letter:nth-child(4) { animation-delay: 0.8s; }  /* P */
-        .letter:nth-child(5) { animation-delay: 0.9s; }  /* U */
-        .letter:nth-child(6) { animation-delay: 1.0s; }  /* R */
-        .letter:nth-child(7) { animation-delay: 1.1s; }  /* E */
-
-        /* --- KEYFRAMES for Impact Reveal (Zoom and Settle) --- */
-        @keyframes impactReveal {
-            0% { 
+        /* --- Keyframes for the Animation --- */
+        @keyframes zoom-in-once {
+            0% {
                 opacity: 0; 
-                transform: scale(0.5); /* Start small and invisible */
+                transform: scale(2.0); /* Start zoomed in */
             }
-            70% { 
-                opacity: 1; 
-                transform: scale(1.1); /* Over-scale (the 'impact' punch) */
+            10% {
+                opacity: 1; /* Fade in quickly */
             }
-            100% { 
+            80% {
+                transform: scale(1.05); /* Slight overshoot for a nice bounce */
+            }
+            100% {
                 opacity: 1; 
-                transform: scale(1.0); /* Settle at final size */
+                transform: scale(1.0); /* Settle at normal size */
             }
         }
     </style>
 </head>
 <body>
-    <div id="animator-container">
-        <div class="isopure-logo">
-            <span class="letter">I</span>
-            <span class="letter">S</span>
-            <span class="letter">O</span>
-            <span class="letter">P</span>
-            <span class="letter">U</span>
-            <span class="letter">R</span>
-            <span class="letter">E</span>
-        </div>
-    </div>
+    <img src="logo-isopure-removebg-preview.png" 
+         alt="Isopure Brand logo" 
+         class="logo">
 </body>
 </html>
