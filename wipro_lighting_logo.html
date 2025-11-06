@@ -1,61 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wipro Logo Slide-Up</title>
+    <title>Animated Brand Logo - WL</title>
     <style>
         body, html {
-            background-color: transparent !important; 
-            width: 100%;
-            height: 100%;
+            /* Ensures transparency and positioning for Looker Studio */
+            background-color: transparent !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
             margin: 0;
-            padding: 0;
             overflow: hidden; 
         }
 
-        #logo-container {
-            /* Centers the logo horizontally and controls its vertical position */
-            display: flex;
-            justify-content: center;
-            align-items: flex-end; /* Align to the bottom of the container */
-            width: 100%;
-            height: 100%;
-            position: relative; /* Needed for absolute positioning of the logo if desired */
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            display: block; 
+            
+            /* --- Animation Properties --- */
+            /* Play Once (1) and Stay at End Position (forwards) */
+            animation: slideUp-once 1.5s ease-out 0.5s 1 forwards; 
+            
+            /* Start invisible before animation begins */
+            opacity: 0; 
+            
+            /* Set initial position for sliding up */
+            transform: translateY(100%); /* Start completely below its final position */
         }
 
-        .wipro-logo {
-            /* Replace with the actual URL of your hosted Wipro logo image */
-            background-image: url('Wipro Logo.png'); 
-            background-size: contain; /* Ensures the whole logo is visible */
-            background-repeat: no-repeat;
-            background-position: center bottom; /* Position image in container */
-            
-            /* Set dimensions for the logo container (adjust as needed) */
-            width: 500px; /* Adjust based on desired final size */
-            height: 150px; /* Adjust based on desired final size */
-            
-            opacity: 0; /* Start invisible */
-            transform: translateY(100%); /* Start completely below the container */
-            
-            /* Apply the slide-up animation */
-            animation: slideUp 1.5s ease-out 0.5s forwards; 
-        }
-
-        /* --- KEYFRAMES for the Slide-Up Effect --- */
-        @keyframes slideUp {
-            0% { 
+        /* --- Keyframes for the Slide-Up Animation --- */
+        @keyframes slideUp-once {
+            0% {
                 opacity: 0; 
-                transform: translateY(100%); /* Start off-screen bottom */
+                transform: translateY(100%); /* Start completely off-screen (down) */
             }
-            100% { 
+            10% {
+                opacity: 1; /* Fade in quickly */
+            }
+            80% {
+                transform: translateY(-5%); /* Slight overshoot for a nice bounce effect */
+            }
+            100% {
                 opacity: 1; 
-                transform: translateY(0%); /* End in its final position (visible) */
+                transform: translateY(0); /* Settle at its final, visible position */
             }
         }
     </style>
 </head>
 <body>
-    <div id="logo-container">
-        <div class="Wipro Logo.png"></div>
-    </div>
+    <img src="Wipro Logo.png" 
+         alt="Wipro lighting Brand logo" 
+         class="logo">
 </body>
 </html>
