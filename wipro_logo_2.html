@@ -1,76 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wipro Logo Slide-Up</title>
+    <title>Animated Brand Logo - wa </title>
     <style>
-        body, html {
-            background-color: transparent !important; 
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; 
-        }
-
-        #logo-container {
-            /* Centers the logo horizontally and aligns it to the bottom */
-            display: flex;
-            justify-content: center;
-            align-items: flex-end; 
-            width: 100%;
-            height: 100%;
-            position: relative; 
-        }
-
-        .wipro-logo {
-            /* 🛑 UPDATE: Replace this URL with your actual public link to Wipro Logo.png */
-            background-image: url('[PASTE_PUBLIC_LINK_TO_Wipro Logo.png_HERE]'); 
-            background-size: contain; 
-            background-repeat: no-repeat;
-            background-position: center bottom; 
-            
-            /* Set dimensions (adjust these sizes to match your logo's aspect ratio in the dashboard) */
-            width: 500px; 
-            height: 150px; 
-            
-            opacity: 0; 
-            transform: translateY(100%); 
-            
-            /* Apply the slide-up animation */
-            animation: slideUp 1.5s ease-out 0.5s forwards; 
-        }
-
-        /* --- KEYFRAMES for the Slide-Up Effect --- */
-        @keyframes slideUp {
-            0% { 
-                opacity: 0; 
-                transform: translateY(100%); /* Start off-screen bottom */
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0%); /* End in its final position (visible) */
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="logo-container">
-        <div class="wipro-logo"></div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-    <title>Animated Brand Logo - ON</title>
-    <style>
-        body, html {
-            /* Ensures transparency and positioning for Looker Studio */
-            background-color: transparent !important;
+        body {
+            /* Center the logo on the page */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh; 
             margin: 0;
+            background-color: #ffffff;
             overflow: hidden; 
         }
 
@@ -82,37 +22,34 @@
             
             /* --- Animation Properties --- */
             /* Play Once (1) and Stay at End Position (forwards) */
-            animation: slideUp-once 1.5s ease-out 0.5s 1 forwards; 
+            animation: zoom-in-once 2s ease-out 0.5s 1 forwards; 
             
             /* Start invisible before animation begins */
             opacity: 0; 
-            
-            /* Set initial position for sliding up */
-            transform: translateY(100%); /* Start completely below its final position */
         }
 
-        /* --- Keyframes for the Slide-Up Animation --- */
-        @keyframes slideUp-once {
+        /* --- Keyframes for the Animation --- */
+        @keyframes zoom-in-once {
             0% {
                 opacity: 0; 
-                transform: translateY(100%); /* Start completely off-screen (down) */
+                transform: scale(2.0); /* Start zoomed in */
             }
             10% {
                 opacity: 1; /* Fade in quickly */
             }
             80% {
-                transform: translateY(-5%); /* Slight overshoot for a nice bounce effect */
+                transform: scale(1.05); /* Slight overshoot for a nice bounce */
             }
             100% {
                 opacity: 1; 
-                transform: translateY(0); /* Settle at its final, visible position */
+                transform: scale(1.0); /* Settle at normal size */
             }
         }
     </style>
 </head>
 <body>
     <img src="wipro.png" 
-         alt="ON Brand logo" 
+         alt="wipro Brand logo" 
          class="logo">
 </body>
 </html>
