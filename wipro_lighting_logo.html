@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wipro Logo Slide-Up</title>
+    <style>
+        body, html {
+            background-color: transparent !important; 
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+        }
+
+        #logo-container {
+            /* Centers the logo horizontally and controls its vertical position */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Align to the bottom of the container */
+            width: 100%;
+            height: 100%;
+            position: relative; /* Needed for absolute positioning of the logo if desired */
+        }
+
+        .wipro-logo {
+            /* Replace with the actual URL of your hosted Wipro logo image */
+            background-image: url('[PASTE_PUBLIC_WIPRO_LOGO_PNG_LINK_HERE]'); 
+            background-size: contain; /* Ensures the whole logo is visible */
+            background-repeat: no-repeat;
+            background-position: center bottom; /* Position image in container */
+            
+            /* Set dimensions for the logo container (adjust as needed) */
+            width: 500px; /* Adjust based on desired final size */
+            height: 150px; /* Adjust based on desired final size */
+            
+            opacity: 0; /* Start invisible */
+            transform: translateY(100%); /* Start completely below the container */
+            
+            /* Apply the slide-up animation */
+            animation: slideUp 1.5s ease-out 0.5s forwards; 
+        }
+
+        /* --- KEYFRAMES for the Slide-Up Effect --- */
+        @keyframes slideUp {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100%); /* Start off-screen bottom */
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0%); /* End in its final position (visible) */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="logo-container">
+        <div class="Wipro Logo.png"></div>
+    </div>
+</body>
+</html>
