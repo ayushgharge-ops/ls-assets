@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wipro Elato 2</title>
+    <title>Wipro Elato 2 Vertical Fix</title>
     <style>
         /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
         body, html {
@@ -14,18 +14,27 @@
             overflow: hidden !important; 
         }
         
-        /* Forces the video to completely COVER and slightly OVER-SCALE the container area */
+        /* Forces the video to completely COVER and center the container */
         video {
-            width: 100% !important; 
-            height: 100% !important; 
+            /* 🛑 FIX 1: Use absolute positioning to center and size */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            
+            /* 🛑 FIX 2: Swap width and height and apply rotation */
+            /* Width becomes 100% of container height, and vice versa */
+            width: 100vh; 
+            height: 100vw; 
+            
+            /* 🛑 FIX 3: Rotate and center it */
+            /* Rotate 90 degrees and move back 50% of its new size to center */
+            transform: translate(-50%, -50%) rotate(90deg) scale(1.02); 
+            
             object-fit: cover; 
             controls: false !important; 
-            
-            /* *** FINAL FIX: Scale up by 5% to guarantee no border is visible *** */
-            transform: scale(1.05);
         }
 
-        /* --- AGGRESSIVE CONTROL HIDING FIX --- */
+        /* --- AGGRESSIVE CONTROL HIDING FIX (Keep as is) --- */
         video::-webkit-media-controls,
         video::-webkit-media-controls-enclosure {
             display: none !important;
@@ -48,15 +57,12 @@
     </video>
 
     <script>
+        // ... (Script remains the same for looping) ...
         const videoElement = document.getElementById('video-player');
-        
-        // Final event-based loop guarantee: When the video ends, reset time and play again.
         videoElement.addEventListener('ended', () => {
             videoElement.currentTime = 0;
             videoElement.play();
         });
-        
-        // Initial start attempt
         videoElement.play().catch(error => {
             console.warn("Autoplay was blocked.");
         });
