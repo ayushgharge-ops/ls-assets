@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Two Circle Image Slide-In</title>
+    <title>Two Circle Image Slide-In - Responsive</title>
     <style>
         body, html {
-            /* Basic setup for embedding */
             background-color: transparent !important;
             width: 100%;
             height: 100%;
@@ -12,13 +11,14 @@
             justify-content: center;
             align-items: center;
             margin: 0;
+            padding: 0; /* Ensure no extra padding */
             overflow: hidden; 
         }
 
         .container {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 100%; /* Take full width of the URL Embed component */
+            height: 100%; /* Take full height of the URL Embed component */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,36 +26,52 @@
 
         .circle-img {
             position: absolute;
-            width: 350px; /* Set a manageable size for the images */
-            height: 350px; 
+            max-width: 60%; /* Allow images to scale within the container (e.g., 60% of container width) */
+            height: auto; /* Maintain aspect ratio */
             opacity: 0.9;
-            z-index: 2; /* Ensure the image is above the background */
+            z-index: 2; 
             
-            /* Apply the animation to both images */
             animation: slideIn 1.5s ease-out 0.3s forwards;
         }
 
         /* --- Image 1: Left Side (Non Skip) --- */
         #img-left {
-            left: 50%; 
-            margin-left: -200px; /* Offset the center point to the left for overlap */
-            transform: translateX(-150%); /* Start off-screen left */
+            transform: translateX(-150%) scale(0.9); /* Start off-screen left, add a slight initial scale */
+            animation-name: slideInLeft; /* Unique animation for left */
+            left: 50%;
+            margin-left: -20%; /* PUSH the center point to the LEFT by 20% of the container width */
         }
 
         /* --- Image 2: Right Side (Bumper) --- */
         #img-right {
-            left: 50%; 
-            margin-left: 50px; /* Offset the center point to the right for overlap */
-            transform: translateX(150%); /* Start off-screen right */
-            animation-delay: 0.5s; /* Slight delay for the second image */
+            transform: translateX(150%) scale(0.9); /* Start off-screen right, add a slight initial scale */
+            animation-name: slideInRight; /* Unique animation for right */
+            left: 50%;
+            margin-left: 20%; /* PUSH the center point to the RIGHT by 20% of the container width */
+            animation-delay: 0.5s; 
         }
 
-        /* --- Keyframes for Slide-In Effect --- */
-        @keyframes slideIn {
-            0% { opacity: 0; }
+        /* --- Keyframes for Left Slide-In Effect --- */
+        @keyframes slideInLeft {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-150%) scale(0.9); /* Start off-screen left */
+            }
             100% { 
                 opacity: 0.9;
-                transform: translateX(0); /* Ends in its correct, centered position */
+                transform: translateX(-50%) scale(0.9); /* End with its own center 50% left of its initial position */
+            }
+        }
+        
+        /* --- Keyframes for Right Slide-In Effect --- */
+        @keyframes slideInRight {
+            0% { 
+                opacity: 0; 
+                transform: translateX(150%) scale(0.9); /* Start off-screen right */
+            }
+            100% { 
+                opacity: 0.9;
+                transform: translateX(-50%) scale(0.9); /* End with its own center 50% left of its initial position */
             }
         }
     </style>
@@ -63,11 +79,11 @@
 <body>
     <div class="container">
         <img id="img-right" class="circle-img" 
-             src="red_circle-removebg-preview.png" 
+             src="[PUBLIC_LINK_TO_BUMPER_CIRCLE_PNG_HERE]" 
              alt="Bumper Campaign Circle">
 
         <img id="img-left" class="circle-img" 
-             src="blue_circle-removebg-preview.png" 
+             src="[PUBLIC_LINK_TO_NON_SKIP_CIRCLE_PNG_HERE]" 
              alt="Non Skip Campaign Circle">
     </div>
 </body>
