@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <title>Two Circle Image Slide-In - Responsive</title>
     <style>
+        /* Define a fixed size for the circles in pixels for guaranteed overlap */
+        :root {
+            --circle-size: 350px; /* NEW: Fixed circle size */
+            --overlap-offset: 100px; /* NEW: Distance the center of the circle is from the center of the screen */
+        }
+        
         body, html {
-            /* Set a dark background for contrast, can be changed to 'transparent' */
-            background-color: #1f2937; 
+            background-color: #1f2937;
             width: 100%;
             height: 100%;
             display: flex;
@@ -19,9 +24,8 @@
 
         .container {
             position: relative;
-            width: 100%; 
-            max-width: 900px; /* Increased max container size */
-            height: 500px; /* Increased container height */
+            width: 800px; /* Defined max container width */
+            height: 400px; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,13 +33,13 @@
 
         .circle-img {
             position: absolute;
-            max-width: 50%; /* CIRCLE SIZE INCREASED */
-            height: auto; 
+            width: var(--circle-size); /* Use fixed size */
+            height: var(--circle-size);
             opacity: 0.9;
             z-index: 2; 
             
             animation-duration: 1.5s;
-            animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Added bounce curve */
+            animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             animation-fill-mode: forwards;
         }
 
@@ -43,28 +47,32 @@
         #img-left {
             animation-name: slideInLeft; 
             left: 50%;
-            margin-left: -25%; /* Half of the max-width (50%) */
+            top: 50%;
+            /* Final position: half circle size to center it, minus the offset */
+            transform: translate(calc(-50% - var(--overlap-offset)), -50%); 
         }
 
         /* --- Image 2: Right Side (Bumper) --- */
         #img-right {
             animation-name: slideInRight; 
             left: 50%;
-            margin-left: 25%;
+            top: 50%;
             animation-delay: 0.5s; 
             z-index: 3;
+            /* Final position: half circle size to center it, plus the offset */
+            transform: translate(calc(-50% + var(--overlap-offset)), -50%); 
         }
-
+        
         /* --- Keyframes for Left Slide-In Effect --- */
         @keyframes slideInLeft {
             0% { 
                 opacity: 0; 
-                transform: translateX(-150%) scale(0.9); 
+                transform: translate(-100vw, -50%) scale(0.9); 
             }
             100% { 
                 opacity: 0.9;
-                /* FINAL POSITION: Moves the center point far left enough to create overlap */
-                transform: translateX(-70%) scale(1); 
+                /* Final Position must match the static position above */
+                transform: translate(calc(-50% - var(--overlap-offset)), -50%) scale(1); 
             }
         }
         
@@ -72,12 +80,12 @@
         @keyframes slideInRight {
             0% { 
                 opacity: 0; 
-                transform: translateX(150%) scale(0.9); 
+                transform: translate(100vw, -50%) scale(0.9); 
             }
             100% { 
                 opacity: 0.9;
-                /* FINAL POSITION: Moves the center point far left enough to create overlap */
-                transform: translateX(-30%) scale(1); 
+                /* Final Position must match the static position above */
+                transform: translate(calc(-50% + var(--overlap-offset)), -50%) scale(1); 
             }
         }
     </style>
@@ -86,7 +94,7 @@
     <div class="container">
         <!-- Placeholder images are used here since your original images are local files -->
         <img id="img-right" class="circle-img" 
-             src="red_circle-removebg-preview.png " 
+             src="red_circle-removebg-preview.png" 
              alt="Bumper Campaign Circle">
 
         <img id="img-left" class="circle-img" 
