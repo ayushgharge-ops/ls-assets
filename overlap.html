@@ -2,16 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Two Circle Image Slide-In - Responsive</title>
+    <title>Perfect Circle Overlap with Animation</title>
     <style>
-        /* Define a fixed size for the circles in pixels for guaranteed overlap */
+        /* Define fixed sizes and colors */
         :root {
-            --circle-size: 350px; /* NEW: Fixed circle size */
-            --overlap-offset: 100px; /* NEW: Distance the center of the circle is from the center of the screen */
+            --circle-size: 350px; 
+            --overlap-offset: 100px; 
+            --color-left: rgba(100, 108, 199, 0.9); /* Blue/Purple with transparency */
+            --color-right: rgba(199, 21, 133, 0.9); /* Magenta/Pink with transparency */
         }
         
         body, html {
-            background-color: transparent; /* CHANGED to transparent */
+            background-color: white; /* White background */
             width: 100%;
             height: 100%;
             display: flex;
@@ -24,43 +26,43 @@
 
         .container {
             position: relative;
-            width: 800px; /* Defined max container width */
+            width: 800px; 
             height: 400px; 
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .circle-img {
+        .circle {
             position: absolute;
-            width: var(--circle-size); /* Use fixed size */
+            width: var(--circle-size);
             height: var(--circle-size);
-            opacity: 0.9;
+            border-radius: 50%; /* GUARANTEES PERFECT CIRCLE */
+            box-sizing: border-box;
             z-index: 2; 
+            opacity: 0.9;
             
             animation-duration: 1.5s;
             animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             animation-fill-mode: forwards;
         }
 
-        /* --- Image 1: Left Side (Non Skip) --- */
-        #img-left {
+        /* --- Left Circle --- */
+        #circle-left {
+            background-color: var(--color-left);
             animation-name: slideInLeft; 
             left: 50%;
             top: 50%;
-            /* Final position: half circle size to center it, minus the offset */
-            transform: translate(calc(-50% - var(--overlap-offset)), -50%); 
         }
 
-        /* --- Image 2: Right Side (Bumper) --- */
-        #img-right {
+        /* --- Right Circle --- */
+        #circle-right {
+            background-color: var(--color-right);
             animation-name: slideInRight; 
             left: 50%;
             top: 50%;
             animation-delay: 0.5s; 
             z-index: 3;
-            /* Final position: half circle size to center it, plus the offset */
-            transform: translate(calc(-50% + var(--overlap-offset)), -50%); 
         }
         
         /* --- Keyframes for Left Slide-In Effect --- */
@@ -71,7 +73,7 @@
             }
             100% { 
                 opacity: 0.9;
-                /* Final Position must match the static position above */
+                /* Final Position for overlap */
                 transform: translate(calc(-50% - var(--overlap-offset)), -50%) scale(1); 
             }
         }
@@ -84,7 +86,7 @@
             }
             100% { 
                 opacity: 0.9;
-                /* Final Position must match the static position above */
+                /* Final Position for overlap */
                 transform: translate(calc(-50% + var(--overlap-offset)), -50%) scale(1); 
             }
         }
@@ -92,14 +94,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Placeholder images are used here since your original images are local files -->
-        <img id="img-right" class="circle-img" 
-             src="red_circle-removebg-preview.png" 
-             alt="Bumper Campaign Circle">
+        
+        <div id="circle-left" class="circle"></div>
 
-        <img id="img-left" class="circle-img" 
-             src="blue_circle-removebg-preview.png" 
-             alt="Non Skip Campaign Circle">
+        <div id="circle-right" class="circle"></div>
+        
     </div>
 </body>
 </html>
