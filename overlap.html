@@ -4,21 +4,22 @@
     <title>Two Circle Image Slide-In - Responsive</title>
     <style>
         body, html {
-            background-color: transparent !important;
+            background-color: #1f2937; /* Changed to dark background for contrast */
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
-            padding: 0; /* Ensure no extra padding */
+            padding: 0; 
             overflow: hidden; 
         }
 
         .container {
             position: relative;
-            width: 100%; /* Take full width of the URL Embed component */
-            height: 100%; /* Take full height of the URL Embed component */
+            width: 100%; 
+            max-width: 800px; /* Added max-width for better control */
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,40 +27,44 @@
 
         .circle-img {
             position: absolute;
-            max-width: 60%; /* Allow images to scale within the container (e.g., 60% of container width) */
-            height: auto; /* Maintain aspect ratio */
+            max-width: 40%; /* Adjusted max-width for better overlap */
+            height: auto; 
             opacity: 0.9;
-            z-index: 2; 
+            z-index: 2; /* Increased z-index */
             
             animation: slideIn 1.5s ease-out 0.3s forwards;
+            animation-duration: 1.5s; /* Explicitly set duration */
+            animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Added bounce curve */
+            animation-fill-mode: forwards;
         }
 
         /* --- Image 1: Left Side (Non Skip) --- */
         #img-left {
-            transform: translateX(-150%) scale(0.9); /* Start off-screen left, add a slight initial scale */
-            animation-name: slideInLeft; /* Unique animation for left */
+            animation-name: slideInLeft; 
             left: 50%;
-            margin-left: -20%; /* PUSH the center point to the LEFT by 20% of the container width */
+            margin-left: -20%;
         }
 
         /* --- Image 2: Right Side (Bumper) --- */
         #img-right {
-            transform: translateX(150%) scale(0.9); /* Start off-screen right, add a slight initial scale */
-            animation-name: slideInRight; /* Unique animation for right */
+            animation-name: slideInRight; 
             left: 50%;
-            margin-left: 20%; /* PUSH the center point to the RIGHT by 20% of the container width */
+            margin-left: 20%;
             animation-delay: 0.5s; 
+            z-index: 3; /* Right circle starts on top */
         }
 
         /* --- Keyframes for Left Slide-In Effect --- */
         @keyframes slideInLeft {
             0% { 
                 opacity: 0; 
-                transform: translateX(-150%) scale(0.9); /* Start off-screen left */
+                transform: translateX(-150%) scale(0.9); 
             }
             100% { 
                 opacity: 0.9;
-                transform: translateX(100%) scale(0.9); /* End with its own center 50% left of its initial position */
+                /* FIX: Must move the image FURTHER LEFT (beyond the center point defined by margin-left: -20%) 
+                       so that it crosses into the middle area. */
+                transform: translateX(-80%) scale(1); 
             }
         }
         
@@ -67,11 +72,13 @@
         @keyframes slideInRight {
             0% { 
                 opacity: 0; 
-                transform: translateX(150%) scale(0.9); /* Start off-screen right */
+                transform: translateX(150%) scale(0.9); 
             }
             100% { 
                 opacity: 0.9;
-                transform: translateX(100%) scale(0.9); /* End with its own center 50% left of its initial position */
+                /* FIX: Must move the image FURTHER RIGHT (beyond the center point defined by margin-left: 20%) 
+                       so that it crosses into the middle area. */
+                transform: translateX(-20%) scale(1); 
             }
         }
     </style>
