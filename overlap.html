@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Two Circle Image Slide-In</title>
+    <style>
+        body, html {
+            /* Basic setup for embedding */
+            background-color: transparent !important;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden; 
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle-img {
+            position: absolute;
+            width: 350px; /* Set a manageable size for the images */
+            height: 350px; 
+            opacity: 0.9;
+            z-index: 2; /* Ensure the image is above the background */
+            
+            /* Apply the animation to both images */
+            animation: slideIn 1.5s ease-out 0.3s forwards;
+        }
+
+        /* --- Image 1: Left Side (Non Skip) --- */
+        #img-left {
+            left: 50%; 
+            margin-left: -200px; /* Offset the center point to the left for overlap */
+            transform: translateX(-150%); /* Start off-screen left */
+        }
+
+        /* --- Image 2: Right Side (Bumper) --- */
+        #img-right {
+            left: 50%; 
+            margin-left: 50px; /* Offset the center point to the right for overlap */
+            transform: translateX(150%); /* Start off-screen right */
+            animation-delay: 0.5s; /* Slight delay for the second image */
+        }
+
+        /* --- Keyframes for Slide-In Effect --- */
+        @keyframes slideIn {
+            0% { opacity: 0; }
+            100% { 
+                opacity: 0.9;
+                transform: translateX(0); /* Ends in its correct, centered position */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="img-right" class="circle-img" 
+             src="red_circle-removebg-preview.png" 
+             alt="Bumper Campaign Circle">
+
+        <img id="img-left" class="circle-img" 
+             src="blue_circle-removebg-preview.png" 
+             alt="Non Skip Campaign Circle">
+    </div>
+</body>
+</html>
