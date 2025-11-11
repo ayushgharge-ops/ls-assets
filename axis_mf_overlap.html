@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Venn Diagram Slide-In</title>
+    <style>
+        /* Define fixed sizes and colors */
+        :root {
+            --circle-size: 350px; 
+            --overlap-offset: 100px; 
+            /* Custom Colors, converted to RGBA for transparency/blending */
+            --color-left: rgba(173, 20, 87, 0.85); /* #ad1457 with transparency */
+            --color-right: rgba(106, 27, 154, 0.85); /* #6a1b9a with transparency */
+        }
+        
+        body, html {
+            background-color: white; /* White background */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0; 
+            overflow: hidden; 
+        }
+
+        .container {
+            position: relative;
+            width: 800px; 
+            height: 400px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle {
+            position: absolute;
+            width: var(--circle-size);
+            height: var(--circle-size);
+            border-radius: 50%; /* Perfect Circle */
+            box-sizing: border-box;
+            z-index: 2; 
+            opacity: 1; /* Keeping opacity 1, relying on RGBA for blend */
+            
+            animation-duration: 1.5s;
+            animation-timing-function: ease-out; /* Smooth, straight animation */
+            animation-fill-mode: forwards;
+            
+            left: 50%;
+            top: 50%;
+        }
+
+        /* --- Left Circle --- */
+        #circle-left {
+            background-color: var(--color-left);
+            animation-name: slideInLeft; 
+        }
+
+        /* --- Right Circle --- */
+        #circle-right {
+            background-color: var(--color-right);
+            animation-name: slideInRight; 
+            animation-delay: 0.5s; 
+            z-index: 3; /* Ensures it lands on top */
+        }
+        
+        /* --- Keyframes for Left Slide-In Effect --- */
+        @keyframes slideInLeft {
+            0% { 
+                opacity: 0; 
+                /* Start far left, centered vertically */
+                transform: translate(calc(-100vw - 50%), -50%) scale(0.9); 
+            }
+            100% { 
+                opacity: 1;
+                /* End at overlap position */
+                transform: translate(calc(-50% - var(--overlap-offset)), -50%) scale(1); 
+            }
+        }
+        
+        /* --- Keyframes for Right Slide-In Effect --- */
+        @keyframes slideInRight {
+            0% { 
+                opacity: 0; 
+                /* Start far right, centered vertically */
+                transform: translate(100vw, -50%) scale(0.9); 
+            }
+            100% { 
+                opacity: 1;
+                /* End at overlap position */
+                transform: translate(calc(-50% + var(--overlap-offset)), -50%) scale(1); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div id="circle-left" class="circle"></div>
+
+        <div id="circle-right" class="circle"></div>
+        
+    </div>
+</body>
+</html>
