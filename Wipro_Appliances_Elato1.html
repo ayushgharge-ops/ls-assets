@@ -1,65 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wipro Elato Diwali</title>
-    <style>
-        /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
-        body, html {
-            margin: 0 !important; 
-            padding: 0 !important; 
-            width: 100% !important; 
-            height: 100% !important; 
-            overflow: hidden !important; 
-        }
-        
-        /* Forces the video to completely COVER and slightly OVER-SCALE the container area */
-        video {
-            width: 100% !important; 
-            height: 100% !important; 
-            object-fit: cover; 
-            controls: false !important; 
-            
-            /* *** FINAL FIX: Scale up by 5% to guarantee no border is visible *** */
-            transform: scale(1.05);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wipro Elato Diwali</title>
 
-        /* --- AGGRESSIVE CONTROL HIDING FIX --- */
-        video::-webkit-media-controls,
-        video::-webkit-media-controls-enclosure {
-            display: none !important;
-            opacity: 0 !important;
-        }
-        video::-moz-range-track { display: none !important; }
-        video::-moz-range-thumb { display: none !important; }
-        video::-ms-fill-lower { display: none !important; }
-    </style>
+  <style>
+    /* --- Page Base --- */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* --- Resizable Container --- */
+    .video-wrapper {
+      position: relative;
+      width: 80vw;
+      height: 45vw; /* roughly 16:9 aspect ratio */
+      max-width: 1200px;
+      max-height: 675px;
+      resize: both; /* allows manual resizing */
+      overflow: hidden;
+      border: 2px solid #333;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    /* --- Video Styling --- */
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05); /* your scale fix */
+      pointer-events: none; /* disable right-click/controls */
+    }
+
+    /* Hide all native controls */
+    video::-webkit-media-controls,
+    video::-webkit-media-controls-enclosure {
+      display: none !important;
+      opacity: 0 !important;
+    }
+    video::-moz-range-track,
+    video::-moz-range-thumb,
+    video::-ms-fill-lower {
+      display: none !important;
+    }
+  </style>
 </head>
-<body>
-    <video 
-        id="video-player" 
-        src="Wipro Elato Diwali.mp4" 
-        autoplay 
-        muted 
-        playsinline
-    >
-        Your browser does not support the video tag.
-    </video>
 
-    <script>
-        const videoElement = document.getElementById('video-player');
-        
-        // Final event-based loop guarantee: When the video ends, reset time and play again.
-        videoElement.addEventListener('ended', () => {
-            videoElement.currentTime = 0;
-            videoElement.play();
-        });
-        
-        // Initial start attempt
-        videoElement.play().catch(error => {
-            console.warn("Autoplay was blocked.");
-        });
-    </script>
+<body>
+  <div class="video-wrapper">
+    <video id="video-player" src="Wipro Elato Diwali.mp4" autoplay muted playsinline></video>
+  </div>
+
+  <script>
+    const videoElement = document.getElementById('video-player');
+
+    // Ensure the video loops seamlessly
+    videoElement.addEventListener('ended', () => {
+      videoElement.currentTime = 0;
+      videoElement.play();
+    });
+
+    // Try autoplay, handle block gracefully
+    videoElement.play().catch(() => {
+      console.warn("Autoplay was blocked by the browser.");
+    });
+  </script>
 </body>
 </html>
