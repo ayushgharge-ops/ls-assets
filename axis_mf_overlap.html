@@ -6,15 +6,19 @@
     <style>
         /* Define fixed sizes and colors */
         :root {
-            --circle-size: 200px; 
-            --overlap-offset: 100px; 
+            --circle-size: 250px; 
+            /* INCREASED OVERLAP OFFSET: 100px -> 150px */
+            --overlap-offset: 120px; 
             /* Custom Colors, converted to RGBA for transparency/blending */
-            --color-left: rgba(173, 20, 87, 0.85); /* #ad1457 with transparency */
+            --color-left: rgba(173, 20, 87, 0.85);  /* #ad1457 with transparency */
             --color-right: rgba(106, 27, 154, 0.85); /* #6a1b9a with transparency */
+            
+            /* Initial horizontal offset for off-screen positioning */
+            --off-screen-start: 100vw;
         }
         
         body, html {
-            background-color: white; /* White background */
+            background-color: white; 
             width: 100%;
             height: 100%;
             display: flex;
@@ -27,7 +31,8 @@
 
         .container {
             position: relative;
-            width: 800px; 
+            width: 100%; 
+            max-width: 900px;
             height: 400px; 
             display: flex;
             justify-content: center;
@@ -41,55 +46,60 @@
             border-radius: 50%; /* Perfect Circle */
             box-sizing: border-box;
             z-index: 2; 
-            opacity: 1; /* Keeping opacity 1, relying on RGBA for blend */
+            opacity: 0; 
             
             animation-duration: 1.5s;
             animation-timing-function: ease-out; /* Smooth, straight animation */
             animation-fill-mode: forwards;
             
-            left: 50%;
             top: 50%;
+            /* Lock vertical center */
+            transform: translateY(-50%); 
         }
 
-        /* --- Left Circle --- */
+        /* --- Left Circle (#ad1457) --- */
         #circle-left {
             background-color: var(--color-left);
             animation-name: slideInLeft; 
+            /* Start position (far left) */
+            left: 0; 
         }
 
-        /* --- Right Circle --- */
+        /* --- Right Circle (#6a1b9a) --- */
         #circle-right {
             background-color: var(--color-right);
             animation-name: slideInRight; 
             animation-delay: 0.5s; 
-            z-index: 3; /* Ensures it lands on top */
+            z-index: 3;
+            /* Start position (far right) */
+            right: 0; 
         }
         
-        /* --- Keyframes for Left Slide-In Effect --- */
+        /* --- Keyframes for Left Slide-In Effect (0% to 100%) --- */
         @keyframes slideInLeft {
             0% { 
                 opacity: 0; 
-                /* Start far left, centered vertically */
-                transform: translate(calc(-100vw - 50%), -50%) scale(0.9); 
+                /* Start far left, outside container */
+                transform: translate(calc(-100% - var(--off-screen-start)), -50%) scale(0.9); 
             }
             100% { 
                 opacity: 1;
-                /* End at overlap position */
-                transform: translate(calc(-50% - var(--overlap-offset)), -50%) scale(1); 
+                /* Final position, translated right from the 'left: 0' start */
+                transform: translate(calc(50% - var(--overlap-offset)), -50%) scale(1); 
             }
         }
         
-        /* --- Keyframes for Right Slide-In Effect --- */
+        /* --- Keyframes for Right Slide-In Effect (0% to 100%) --- */
         @keyframes slideInRight {
             0% { 
                 opacity: 0; 
-                /* Start far right, centered vertically */
-                transform: translate(100vw, -50%) scale(0.9); 
+                /* Start far right, outside container */
+                transform: translate(calc(100% + var(--off-screen-start)), -50%) scale(0.9); 
             }
             100% { 
                 opacity: 1;
-                /* End at overlap position */
-                transform: translate(calc(-50% + var(--overlap-offset)), -50%) scale(1); 
+                /* Final position, translated left from the 'right: 0' start */
+                transform: translate(calc(-50% - var(--overlap-offset)), -50%) scale(1); 
             }
         }
     </style>
