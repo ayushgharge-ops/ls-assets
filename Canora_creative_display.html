@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Creative Carousel for Dashboard</title>
+    
+    <!-- Load Tailwind CSS from CDN for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Use Inter font for a professional dashboard look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f9; /* Light, clean dashboard background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Container for the single creative frame */
+        .creative-frame {
+            position: relative;
+            width: 100%;
+            max-width: 350px; /* Max size for the banner */
+            aspect-ratio: 1 / 1; /* Maintain a perfect square aspect ratio */
+            overflow: hidden;
+            border-radius: 1.5rem; /* Large rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+        }
+
+        /* Styles for the image inside the frame */
+        #creativeImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the frame nicely */
+            opacity: 0; /* Start invisible for the fade-in effect */
+            transition: opacity 0.5s ease-in-out; /* Smooth transition for fade effect */
+        }
+
+        /* Class to make the current image visible */
+        .active {
+            opacity: 1 !important;
+        }
+
+        /* Optional: Add a simple button style for the pause/play controls */
+        .control-button {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            background-color: #5b21b6; /* Deep Purple */
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-button:hover {
+            background-color: #4c1d95;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-2xl">
+        <h2 class="text-xl font-bold mb-4 text-gray-800">Dynamic Creative Preview</h2>
+
+        <div class="creative-frame mb-4">
+            <!-- Image element that will display the cycling creatives -->
+            <img id="creativeImage" src="" alt="Campaign Creative">
+        </div>
+
+        <div class="controls flex justify-center">
+            <button id="toggleButton" class="control-button">Pause Cycle</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        
+        // V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V
+        // THIS IS WHERE YOU PASTE THE IMAGE NAMES FROM YOUR GITHUB REPOSITORY
+        // V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V
+        const creativeUrls = [
+            'Hindi Creative.jfif',      // Creative 1
+            'Tamil Creative.gif',      // Creative 2
+            'Telugu Creative.jfif',  // Creative 3
+        ];
+
+        const displayDuration = 3000; // Time in milliseconds (3 seconds) for each creative
+        const transitionDuration = 500; // Time in milliseconds for the fade (must match CSS)
+
+        let currentIndex = 0;
+        let intervalId = null;
+        let isRunning = true;
+
+        const creativeImage = document.getElementById('creativeImage');
+        const toggleButton = document.getElementById('toggleButton');
+
+        /**
+         * Switches the creative image to the next one in the array with a fade effect.
+         */
+        function cycleCreatives() {
+            // 1. Fade out the current image
+            creativeImage.classList.remove('active');
+
+            // Wait for the fade-out to complete (500ms) before changing the source
+            setTimeout(() => {
+                // 2. Update the image source
+                creativeImage.src = creativeUrls[currentIndex];
+                
+                // 3. Increment index for next cycle
+                currentIndex = (currentIndex + 1) % creativeUrls.length;
+                
+                // 4. Fade in the new image
+                creativeImage.classList.add('active');
+            }, transitionDuration);
+        }
+        
+        /**
+         * Starts the image carousel interval.
+         */
+        function startCarousel() {
+            if (intervalId !== null) return; // Already running
+            cycleCreatives(); // Run the first creative immediately
+            intervalId = setInterval(cycleCreatives, displayDuration);
+            isRunning = true;
+            toggleButton.textContent = 'Pause Cycle';
+        }
+
+        /**
+         * Stops the image carousel interval.
+         */
+        function stopCarousel() {
+            if (intervalId !== null) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+            isRunning = false;
+            toggleButton.textContent = 'Play Cycle';
+        }
+
+        /**
+         * Toggles the start/stop state of the carousel.
+         */
+        function toggleCarousel() {
+            if (isRunning) {
+                stopCarousel();
+            } else {
+                startCarousel();
+            }
+        }
+        
+        // --- Event Listeners and Initialization ---
+        
+        // Start the carousel when the window loads
+        window.onload = startCarousel;
+        
+        // Attach the toggle function to the button
+        toggleButton.addEventListener('click', toggleCarousel);
+
+    </script>
+</body>
+</html>
