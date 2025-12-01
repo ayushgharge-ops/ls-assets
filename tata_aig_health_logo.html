@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Brand Logo - AMF </title>
+    <style>
+        body {
+            /* Center the logo on the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+            background-color: #ffffff;
+            overflow: hidden; 
+        }
+
+        .logo {
+            /* Set a manageable size for the logo */
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            display: block; 
+            
+            /* --- Animation Properties --- */
+            /* Play Once (1) and Stay at End Position (forwards) */
+            animation: zoom-in-once 2s ease-out 0.5s 1 forwards; 
+            
+            /* Start invisible before animation begins */
+            opacity: 0; 
+        }
+
+        /* --- Keyframes for the Animation --- */
+        @keyframes zoom-in-once {
+            0% {
+                opacity: 0; 
+                transform: scale(2.0); /* Start zoomed in */
+            }
+            10% {
+                opacity: 1; /* Fade in quickly */
+            }
+            80% {
+                transform: scale(1.05); /* Slight overshoot for a nice bounce */
+            }
+            100% {
+                opacity: 1; 
+                transform: scale(1.0); /* Settle at normal size */
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="R-removebg-preview (1).png" 
+         alt="Tata AIG Health" 
+         class="logo">
+</body>
+</html>
