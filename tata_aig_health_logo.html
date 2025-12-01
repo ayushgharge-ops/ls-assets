@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Animated Brand Logo - TAIG </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Brand Logo - TAIG (Responsive)</title>
+    
+    <!-- Load Tailwind CSS for modern styling and responsive utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Base styling: Center the content using Flexbox */
         body {
-            /* Center the logo on the page */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -12,12 +17,24 @@
             margin: 0;
             background-color: #ffffff;
             overflow: hidden; 
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* The container for the logo, defining the maximum size */
+        .logo-container {
+            /* Set max size relative to viewport width, ensuring it scales down */
+            max-width: 60vw; /* Maximum width is 60% of the viewport width */
+            width: 300px; /* Base size for larger screens (optional, but good for control) */
+            padding: 2rem; /* Add some padding around the logo */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
         }
 
         .logo {
-            /* Set a manageable size for the logo */
-            width: 300px; /* Adjust size as needed */
-            height: auto;
+            /* --- FIX: Use relative width for fluid resizing --- */
+            /* Width is 100% of its parent container (.logo-container) */
+            width: 100%; 
+            height: auto; 
             display: block; 
             
             /* --- Animation Properties --- */
@@ -28,7 +45,7 @@
             opacity: 0; 
         }
 
-        /* --- Keyframes for the Animation --- */
+        /* --- Keyframes for the Animation (Remains the same) --- */
         @keyframes zoom-in-once {
             0% {
                 opacity: 0; 
@@ -48,8 +65,11 @@
     </style>
 </head>
 <body>
-    <img src="R-removebg-preview (1).png" 
-         alt="TATA AIG HEALTH" 
-         class="logo">
+    <!-- Wrap the image in a container to manage its maximum size and responsiveness -->
+    <div class="logo-container">
+        <img src="R-removebg-preview (1).png" 
+             alt="TATA AIG HEALTH" 
+             class="logo">
+    </div>
 </body>
 </html>
