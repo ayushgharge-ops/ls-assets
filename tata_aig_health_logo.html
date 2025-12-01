@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Brand Logo - TAIG (Responsive)</title>
+    <title>Animated Brand Logo - TAIG (Transparent)</title>
     
     <!-- Load Tailwind CSS for modern styling and responsive utilities -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +15,7 @@
             align-items: center;
             min-height: 100vh; 
             margin: 0;
+            /* CRITICAL FIX: Ensure the body background is what you want (white, but could be transparent if the host supports it) */
             background-color: #ffffff;
             overflow: hidden; 
             font-family: 'Inter', sans-serif;
@@ -22,26 +23,25 @@
 
         /* The container for the logo, defining the maximum size */
         .logo-container {
-            /* Set max size relative to viewport width, ensuring it scales down */
+            /* FIX: Set background to transparent and remove shadow */
+            background-color: transparent; /* Makes the container background invisible */
+            box-shadow: none; /* Removes the white card effect */
+            
+            /* Responsiveness settings (kept from previous version) */
             max-width: 60vw; /* Maximum width is 60% of the viewport width */
             width: 300px; /* Base size for larger screens (optional, but good for control) */
-            padding: 2rem; /* Add some padding around the logo */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Removed padding to let the logo sit right on the edge */
             border-radius: 1rem;
         }
 
         .logo {
-            /* --- FIX: Use relative width for fluid resizing --- */
-            /* Width is 100% of its parent container (.logo-container) */
+            /* Fluid Image Size */
             width: 100%; 
             height: auto; 
             display: block; 
             
             /* --- Animation Properties --- */
-            /* Play Once (1) and Stay at End Position (forwards) */
             animation: zoom-in-once 2s ease-out 0.5s 1 forwards; 
-            
-            /* Start invisible before animation begins */
             opacity: 0; 
         }
 
@@ -49,23 +49,22 @@
         @keyframes zoom-in-once {
             0% {
                 opacity: 0; 
-                transform: scale(2.0); /* Start zoomed in */
+                transform: scale(2.0); 
             }
             10% {
-                opacity: 1; /* Fade in quickly */
+                opacity: 1; 
             }
             80% {
-                transform: scale(1.05); /* Slight overshoot for a nice bounce */
+                transform: scale(1.05); 
             }
             100% {
                 opacity: 1; 
-                transform: scale(1.0); /* Settle at normal size */
+                transform: scale(1.0); 
             }
         }
     </style>
 </head>
 <body>
-    <!-- Wrap the image in a container to manage its maximum size and responsiveness -->
     <div class="logo-container">
         <img src="R-removebg-preview (1).png" 
              alt="TATA AIG HEALTH" 
