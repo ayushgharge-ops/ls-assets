@@ -3,18 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tata AIG Media Console Title Animation (Updated Shorter Title)</title>
+    <title>Tata AIG Media Console Title Animation (Updated Color)</title>
     
     <!-- Load Tailwind CSS for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // --- Tailwind Configuration for Brand Colors ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // UPDATED: Tata AIG Primary Brand Blue (Deep Sapphire)
+                        'tata-aig-blue': '#0f25a3', 
+                        // A suggested Accent Color based on uploaded data visuals (Venn diagrams)
+                        'data-accent-purple': '#7F5EAB',
+                        // White for text and card backgrounds
+                        'brand-white': '#FFFFFF',
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        /* Define the primary blue theme color */
+        /* Define the primary blue theme color using the new custom property */
         :root {
-            --primary-blue: #0A3D62;
+            --primary-blue: theme('colors.tata-aig-blue');
         }
 
         body {
             font-family: 'Inter', sans-serif;
+            /* Use the custom brand blue for the background */
             background-color: var(--primary-blue);
             display: flex;
             justify-content: center;
@@ -27,7 +45,8 @@
         .title-container {
             font-size: clamp(1.5rem, 5vw, 4.5rem);
             font-weight: 700;
-            color: #ffffff;
+            /* Use the custom brand white for text */
+            color: theme('colors.brand-white'); 
             text-align: center;
             white-space: nowrap; 
             overflow: visible; 
@@ -54,11 +73,11 @@
 <body>
 
     <h1 id="animated-title" class="title-container">
-        <!-- The new, shorter text will be animated here by JavaScript -->
+        <!-- The text will be animated here by JavaScript -->
     </h1>
 
     <script>
-        // *** UPDATED: The new, shorter title string from the user ***
+        // The title string
         const titleText = "Tata AIG Health Nov 25";
         const titleElement = document.getElementById('animated-title');
         
