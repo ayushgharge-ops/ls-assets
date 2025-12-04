@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tata AIG Media Console Title Animation (Updated Color)</title>
+    <title>Tata AIG Media Console Title Animation (Fixed Color)</title>
     
     <!-- Load Tailwind CSS for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,9 +13,9 @@
             theme: {
                 extend: {
                     colors: {
-                        // UPDATED: Tata AIG Primary Brand Blue (Deep Sapphire)
+                        // PRIMARY BRAND COLOR: Deep Sapphire Blue
                         'tata-aig-blue': '#0f25a3', 
-                        // A suggested Accent Color based on uploaded data visuals (Venn diagrams)
+                        // A suggested Accent Color (Purple)
                         'data-accent-purple': '#7F5EAB',
                         // White for text and card backgrounds
                         'brand-white': '#FFFFFF',
@@ -25,35 +25,18 @@
         }
     </script>
     <style>
-        /* Define the primary blue theme color using the new custom property */
-        :root {
-            --primary-blue: theme('colors.tata-aig-blue');
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Use the custom brand blue for the background */
-            background-color: var(--primary-blue);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: auto; 
-        }
-
+        /* Styles needed for the animation (not easily done with classes) */
+        
         .title-container {
             font-size: clamp(1.5rem, 5vw, 4.5rem);
             font-weight: 700;
-            /* Use the custom brand white for text */
-            color: theme('colors.brand-white'); 
             text-align: center;
             white-space: nowrap; 
             overflow: visible; 
             padding: 0 1rem;
         }
 
-        /* The class applied to each individual character */
+        /* The class applied to each individual character for the typing effect */
         .char {
             display: inline-block;
             /* CRITICAL: Hide the character but ensure it takes up space */
@@ -70,9 +53,13 @@
         }
     </style>
 </head>
-<body>
+<!-- 
+    The background color is now applied directly using a Tailwind class 
+    (bg-tata-aig-blue) and we use font-sans which maps to Inter by default.
+-->
+<body class="bg-tata-aig-blue font-sans flex justify-center items-center min-h-screen m-0 overflow-x-auto text-brand-white">
 
-    <h1 id="animated-title" class="title-container">
+    <h1 id="animated-title" class="title-container text-brand-white">
         <!-- The text will be animated here by JavaScript -->
     </h1>
 
