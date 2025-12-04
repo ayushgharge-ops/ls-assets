@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata AIG Media Console Title Animation (Updated Shorter Title)</title>
+    
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define the primary blue theme color */
+        :root {
+            --primary-blue: #0A3D62;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: auto; 
+        }
+
+        .title-container {
+            font-size: clamp(1.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            white-space: nowrap; 
+            overflow: visible; 
+            padding: 0 1rem;
+        }
+
+        /* The class applied to each individual character */
+        .char {
+            display: inline-block;
+            /* CRITICAL: Hide the character but ensure it takes up space */
+            visibility: hidden; 
+            /* Animation instantly makes it visible when delay hits */
+            animation: type-reveal 0.001s forwards; 
+        }
+        
+        /* The animation simply sets visibility to visible */
+        @keyframes type-reveal {
+            to {
+                visibility: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="animated-title" class="title-container">
+        <!-- The new, shorter text will be animated here by JavaScript -->
+    </h1>
+
+    <script>
+        // *** UPDATED: The new, shorter title string from the user ***
+        const titleText = "Tata AIG Health Nov 25";
+        const titleElement = document.getElementById('animated-title');
+        
+        // Settings for different animation speeds
+        const slowTypingSpeed = 0.4; // 400ms delay for the first word 'Tata'
+        const normalTypingSpeed = 0.08; // 80ms delay for the rest
+        
+        let cumulativeDelay = 0;
+
+        // Split the text into individual characters and wrap them in a span
+        const chars = titleText.split('').map((char, index) => {
+            
+            // Apply slow speed for the first 4 characters ('Tata')
+            const speed = index < 4 ? slowTypingSpeed : normalTypingSpeed;
+            
+            // The current character's reveal time is based on the cumulative delay
+            const delay = cumulativeDelay; 
+            
+            // Update cumulative delay for the next character
+            cumulativeDelay += speed;
+
+            // Handle spaces: use a non-animating span for spacing
+            if (char === ' ') {
+                // Return a non-breaking space inside a container to maintain spacing
+                return `<span class="inline-block w-3 sm:w-5">&nbsp;</span>`;
+            }
+
+            // Apply the 'char' class and the calculated animation delay
+            return `<span class="char" style="animation-delay: ${delay}s;">${char}</span>`;
+        }).join('');
+
+        // Insert the wrapped characters into the H1 element
+        titleElement.innerHTML = chars;
+
+    </script>
+</body>
+</html>
