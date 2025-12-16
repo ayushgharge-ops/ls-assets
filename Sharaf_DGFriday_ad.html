@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharaf DG ad</title>
+    <style>
+        /* CRITICAL: Aggressive CSS to eliminate all margins/padding from the iframe */
+        body, html {
+            margin: 0 !important; 
+            padding: 0 !important; 
+            width: 100% !important; 
+            height: 100% !important; 
+            overflow: hidden !important; 
+        }
+        
+        /* Forces the video to completely COVER and slightly OVER-SCALE the container area */
+        video {
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: cover; 
+            controls: false !important; 
+            
+            /* *** FINAL FIX: Scale up by 5% to guarantee no border is visible *** */
+            transform: scale(1.05);
+        }
+
+        /* --- AGGRESSIVE CONTROL HIDING FIX --- */
+        video::-webkit-media-controls,
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+            opacity: 0 !important;
+        }
+        video::-moz-range-track { display: none !important; }
+        video::-moz-range-thumb { display: none !important; }
+        video::-ms-fill-lower { display: none !important; }
+    </style>
+</head>
+<body>
+    <video 
+        id="video-player" 
+        src="DG Friday-Social-211125-1x1-10sec (1).mp4" 
+        autoplay 
+        muted 
+        playsinline
+    >
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        const videoElement = document.getElementById('video-player');
+        
+        // Final event-based loop guarantee: When the video ends, reset time and play again.
+        videoElement.addEventListener('ended', () => {
+            videoElement.currentTime = 0;
+            videoElement.play();
+        });
+        
+        // Initial start attempt
+        videoElement.play().catch(error => {
+            console.warn("Autoplay was blocked.");
+        });
+    </script>
+</body>
+</html>
