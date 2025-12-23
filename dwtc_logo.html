@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Brand Logo - DWTC</title>
+    <style>
+        body, html {
+            /* Ensures transparency and positioning for Looker Studio */
+            background-color: transparent !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+            overflow: hidden; 
+        }
+
+        .logo {
+            /* --- INCREASED SIZE HERE --- */
+            width: 200 px; /* INCREASED SIZE */
+            height: auto;
+            display: block; 
+            
+            /* --- Animation Properties --- */
+            animation: slideUp-once 1.5s ease-out 0.5s 1 forwards; 
+            opacity: 0; 
+            transform: translateY(100%); 
+        }
+
+        /* --- Keyframes for the Slide-Up Animation --- */
+        @keyframes slideUp-once {
+            0% {
+                opacity: 0; 
+                transform: translateY(100%); /* Start completely off-screen (down) */
+            }
+            10% {
+                opacity: 1; /* Fade in quickly */
+            }
+            80% {
+                transform: translateY(-5%); /* Slight overshoot for a nice bounce effect */
+            }
+            100% {
+                opacity: 1; 
+                transform: translateY(0); /* Settle at its final, visible position */
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="DWTC-Logo-removebg-preview.png" 
+         alt="DWTC Brand logo" 
+         class="logo">
+</body>
+</html>
